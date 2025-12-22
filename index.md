@@ -1,5 +1,5 @@
 ---
-title: "Laboratoire 1 : Configuration du Raspberry Pi Zero W et mise en place d'un environnement de développement"
+title: "Laboratoire 1 : Configuration du Raspberry Pi Zero W et compilation d'un noyau temps réel"
 ---
 
 ## 1. Objectifs
@@ -8,25 +8,35 @@ Ce travail pratique vise les objectifs suivants :
 
 1. Mettre en place un environnement de développement complet;
 2. Comprendre les mécanismes derrière la compilation croisée;
+3. Préparer la configuration d'un noyau temps réel;
 3. Maîtriser les rudiments du débogage et du profilage à distance;
 4. Analyser et déboguer un code C simple;
 5. Se familiariser avec l'utilisation du Raspberry Pi Zero W.
 
+### 1.1 Survol du laboratoire
+
+Ce laboratoire vise à la mise en place de l'environnement de programmation que nous utiliserons tout au long de la session. Celui-ci se base, d'une part, sur un Raspberry Pi Zero W (en tant que système embarqué) et, d'autre part, sur une machine virtuelle Linux (en tant qu'environnement de développement et de compilation). Dans ce laboratoire, nous verrons comment configurer le Raspberry Pi Zero W et installer la machine virtuelle de développement. Par la suite, nous compilerons un noyau Linux temps réel (`PREEMPT_RT`) pour le Raspberry Pi Zero W et validerons son fonctionnement. Finalement, vous aurez à compiler, exécuter, puis déboguer un programme C simple pour valider le bon fonctionnement de votre matériel.
+
+> **Important :** le Raspberry Pi étant un ordinateur à part entière, il est techniquement possible de n'utiliser que ce dernier et y travailler localement en se passant de l'environnement de développement à distance. Cela n'est toutefois pas représentatif du développement des systèmes embarqués en pratique, où il est souvent impossible de travailler directement sur le matériel cible, que ce soit par manque de puissance ou par d'autres problèmes pratiques (pensons par exemple à un Raspberry Pi embarqué dans un dispositif lourd et encombrant). De plus, pour beaucoup de travaux, la puissance limitée du Raspberry Pi Zero W et son nombre de ports limité rendraient malaisée une telle utilisation. Par exemple, dans le cadre de ce premier laboratoire, la compilation du noyau Linux devrait requérir moins d'une dizaine de minutes sur votre machine virtuelle, mais demanderait plus d'une heure sur le Raspberry Pi Zero! Pour toutes ces raisons, dans le cadre du cours, *il vous est interdit d'utiliser le Raspberry Pi de cette manière*, sauf lorsque qu'expressément autrement mentionné dans un énoncé ou autorisé par le professeur.
+
 
 ## 2. Préparation du Raspberry Pi
 
-La carte MicroSD du kit qui vous a été fourni contient normalement déjà l'image système nécessaire au cours. Toutefois, dans le cas où vous recevez un kit avec une MicroSD non-initialisée, que vous voudriez revenir à l'état initial de l'image, ou simplement créer une copie, vous pouvez télécharger le fichier *.img* contenant l'[image du cours](http://wcours.gel.ulaval.ca/GIF3004/setrh26/setr2026_rpizero_image.zip). Ce fichier doit être copié en mode bas niveau sur une carte MicroSD d'une capacité d'au moins *32 GB* (par exemple en utilisant `dd` sous Linux, ou un programme tel que [Rufus](https://rufus.ie/en/) sur Windows).
+La carte MicroSD du kit qui vous a été fourni **contient déjà** l'image système nécessaire au cours. Toutefois, dans le cas où vous recevez un kit avec une MicroSD non-initialisée, que vous voudriez revenir à l'état initial de l'image, ou simplement créer une copie, vous pouvez télécharger le fichier *.img* contenant l'[image du cours](http://wcours.gel.ulaval.ca/GIF3004/setrh26/setr2026_rpizero_image.zip). Ce fichier (une fois extrait de l'archive ZIP) doit être copié en mode bas niveau sur une carte MicroSD d'une capacité d'au moins *32 GB* (par exemple en utilisant `dd` sous Linux, ou un programme tel que [Rufus](https://rufus.ie/en/) sur Windows).
 
-La première des tâches à réaliser est de démarrer le Raspberry Pi Zero W, de mettre en place sa configuration initiale et de vous assurer de son bon fonctionnement. Par la suite, vous devrez installer sur votre ordinateur l'environnement de développement et de compilation croisée qui vous servira tout au long de la session. 
-
-> **Important :** le Raspberry Pi étant un ordinateur à part entière, il est techniquement possible de n'utiliser que ce dernier et y travailler localement en se passant de l'environnement de développement à distance. Cela n'est toutefois pas représentatif du développement des systèmes embarqués en pratique, où il est souvent impossible de travailler directement sur le matériel cible, que ce soit par manque de puissance ou par d'autres problèmes pratiques (pensons par exemple à un Raspberry Pi embarqué dans un dispositif lourd et encombrant). De plus, pour beaucoup de travaux, la puissance limitée du Raspberry Pi Zero W et son nombre de ports limité rendraient malaisée une telle utilisation. Pour cette raison, dans le cadre du cours, *il vous est interdit d'utiliser le Raspberry Pi de cette manière*, sauf lorsque qu'expressément mentionné autrement dans un énoncé ou autorisé par le professeur.
 
 ### 2.1. Démarrage et changement de mot de passe
 
-Insérez la carte MicroSD avec l'image du cours dans la fente prévue à cet effet sur le Raspberry Pi. Branchez un écran (une sortie HDMI est disponible, n'oubliez pas d'utiliser le convertisseur mini-HDMI vers HDMI) ainsi qu'un clavier (utilisez la prise USB _la plus proche du port HDMI_ pour brancher le clavier et la plus éloignée pour l'alimentation). Vous devrez d'abord vous authentifier avec le compte par défaut :
+Insérez la carte MicroSD avec l'image du cours dans la fente prévue à cet effet sur le Raspberry Pi. Branchez un écran (une sortie HDMI est disponible, n'oubliez pas d'utiliser le convertisseur mini-HDMI vers HDMI) ainsi qu'un clavier (utilisez la prise USB _la plus proche du port HDMI_ pour brancher le clavier et la plus éloignée pour l'alimentation). 
+
+> Note : la sortie HDMI du Raspberry ne s'active au démarrage que si un écran y est branché. Si son port HDMI n'a pas été utilisé lors du démarrage, brancher un écran par la suite ne fonctionnera pas. Assurez-vous qu'un écran soit branché _avant_ de brancher le câble d'alimentation du Raspberry Pi Zero W pour éviter ce problème.
+
+Le système ne demande pas d'authentification lorsque accédé localement (autrement dit, avec un clavier branché directement sur le Raspberry Pi Zero), mais à titre informatif, les identifiants du compte par défaut sont les suivants :
 
 * **Nom d'utilisateur** : _pi_
 * **Mot de passe** : _setrh2026_
+
+#### 2.1.1 Changement de mot de passe
 
 Nous vous recommandons **fortement** de remplacer ce mot de passe par défaut par un mot de passe plus sécuritaire (et connu de vous seul). Pour changer votre mot de passe manuellement, utilisez la commande `passwd` dans le terminal.
 
@@ -38,16 +48,30 @@ Ensuite, vous devez configurer votre Raspberry Pi pour qu'il se connecte au rés
 
 #### 2.2.1. Eduroam
 
-Si vous êtes sur le campus, nous vous suggérons d'utiliser Eduroam. Nous vous fournissons déjà un fichier de configuration pour ce réseau dans `/etc/NetworkManager/system-connections/eduroam2.nmconnection`. Éditez ce fichier pour y ajouter votre IDUL et votre NIP, puis redémarrez le Raspberry Pi avec la commande `sudo reboot`. 
+Si vous êtes sur le campus, nous vous suggérons d'utiliser Eduroam2 (le réseau accessible au laboratoire). Nous vous fournissons déjà un fichier de configuration pour ce réseau dans `/etc/NetworkManager/system-connections/eduroam2.nmconnection`. Éditez ce fichier pour y ajouter votre IDUL et votre NIP, puis redémarrez le Raspberry Pi avec la commande `sudo reboot`. 
 
-> Note : si vous n'êtes pas familier avec les éditeurs de texte en console, nous vous suggérons d'utiliser `nano` (par exemple, dans ce cas-ci, `sudo nano /etc/NetworkManager/system-connections/eduroam.nmconnection`). Une fois vos modifications effectuées, utilisez Ctrl+X pour quitter, puis Y (pour enregistrer vos modifications) et Enter (pour conserver le même nom de fichier). Si vous êtes familiers avec d'autres éditeurs, vous êtes évidemment libre de les utiliser.
+> Note : si vous n'êtes pas familier avec les éditeurs de texte en console, nous vous suggérons d'utiliser `nano` (par exemple, dans ce cas-ci, `sudo nano /etc/NetworkManager/system-connections/eduroam2.nmconnection`). Une fois vos modifications effectuées, utilisez Ctrl+X pour quitter, puis Y (pour enregistrer vos modifications) et Enter (pour conserver le même nom de fichier). Si vous êtes familiers avec d'autres éditeurs, vous êtes évidemment libre de les utiliser.
 
 
 #### 2.2.2. Votre propre réseau
 
-Utilisez la commande `nmtui` dans le terminal et suivez les instructions. En général, il suffit de sélectionner `Activate a connection` ou `Edit connection` (dépendant des réseaux déjà enregistrés), puis de sélectionner le réseau sur lequel vous voulez vous connecter. Une fois la configuration terminée, la connexion devrait se faire dans un délai de 15 à 20 secondes.
+Utilisez la commande `nmtui` dans le terminal et suivez les instructions. En général, il suffit de sélectionner `Activate a connection` ou `Edit connection` (dépendant des réseaux déjà enregistrés), puis de sélectionner le réseau sur lequel vous voulez vous connecter et de fournir votre mot de passe. Une fois la configuration terminée, la connexion devrait se faire dans un délai de 15 à 20 secondes.
 
 > Note : si, sur votre propre réseau, vous observez des lenteurs anormales ou des déconnexions fréquentes dans vos connexions SSH (ex. lors de vos sessions de débogage), essayez d'ajouter la ligne `IPQoS cs0 cs0` à la fin du fichier `/etc/ssh/sshd_config`. Voyez [cette page](https://discourse.osmc.tv/t/solved-ssh-connection-sometimes-hangs/76504) pour plus d'informations.
+
+#### 2.2.3 Valider la connexion
+
+Vous pouvez valider la connexion sans-fil en exécutant la commande `ip addr | grep -A 3 wlan` sur le Raspberry Pi Zero. Celle-ci devrait :
+
+1. À la première ligne, vous mentionner que l'interface `wlan0` est "UP" (active).
+2. À la troisième ligne, vous fournir, après le mot `inet`, une adresse IPv4.
+
+Voici un exemple de résultat (l'adresse IP peut évidemment changer dans votre cas, dans ce cas-ci, il s'agit de `192.168.0.16`):
+<img src="img/ipaddr.png" style="width:510px"/>
+
+Notez cette adresse IP, elle vous servira à la prochaine étape.
+
+> Note : Si aucune adresse IP n'est spécifiée, vérifiez la sortie de `iwconfig`, qui devrait vous confirmer si vous êtes connectés ou non au réseau sans-fil.
 
 ## 3. Installation de la machine virtuelle de développement
 
@@ -56,7 +80,7 @@ Ce cours requiert l'utilisation d'un système GNU/Linux. Nous vous suggérons _f
 - Une version x86-64, au format VirtualBox (VDI), adaptée aux ordinateurs utilisant un **processeur x86-64 (Intel ou AMD)**. C'est le cas pour les ordinateurs sous Windows, Linux et les Mac utilisant un processeur Intel. Elle est disponible à [l'adresse suivante](http://wcours.gel.ulaval.ca/GIF3004/setrh26/SETR-H26-VM-x64.zip) (attention, téléchargement de 7.5 Go).
 - Une version ARM64, au format UTM, **adaptée aux Mac utilisant un processeur Apple Mx**, où x est un nombre de 1 à 5. Elle est disponible à [l'adresse suivante](http://wcours.gel.ulaval.ca/GIF3004/setrh26/SETR-H26-VM-ARM64.zip) (attention, téléchargement de 7.5 Go).
 
-Le contenu de ces machines virtuelles est le même. Le nom d'utilisateur est `setr` et le mot de passe `setrh2026`; vous n'avez pas accès à la commande `sudo`, mais pouvez passer en mode _root_ en utilisant `su`. Nous expliquons à la section 3.1 comment la paramétrer. Dans tous les cas, vous aurez besoin d'environ 20 Go d'espace disque.
+Le contenu de ces machines virtuelles est le même. Le nom d'utilisateur est `setr` et le mot de passe `setrh2026`. Nous expliquons à la section 3.1 comment la paramétrer. Dans tous les cas, vous aurez besoin d'environ 20 Go d'espace disque.
 
 Finalement, vous êtes libres d'utiliser votre propre installation _Linux_. Notez toutefois que nous ne pourrons vous offrir de support sur sa configuration et que vous devrez bâtir vous-mêmes l'environnement de compilation croisée.
 
@@ -64,7 +88,7 @@ Finalement, vous êtes libres d'utiliser votre propre installation _Linux_. Note
 
 ### 3.1. Lancement de la machine virtuelle x86-64
 
-Commencez par décompresser le fichier setrh2026.vdi.zip téléchargé, il devrait contenir un unique fichier .vdi.
+Commencez par décompresser le fichier `SETR-H26-VM-x64.zip` téléchargé, il devrait contenir un unique fichier .vdi.
 Pour importer la machine virtuelle dans VirtualBox, cliquez sur *Nouvelle*. 
 
 <img src="img/vbox_1.png" style="width:510px"/>
@@ -73,7 +97,7 @@ Vous pouvez choisir le nom de la machine virtuelle, pour *Type* sélectionnez *L
 
 <img src="img/vbox_2.png" style="width:800px"/>
 
-Dans la section _Hardware_, choisissez la mémoire et le nombre de CPU que vous allez allouer à la machine virtuelle (vous pourrez toujours ajuster plus tard au besoin). Nous vous recommandons au _minimum_ 2 processeurs et 4096 MB de RAM.
+Dans la section _Hardware_, choisissez la mémoire et le nombre de CPU que vous allez allouer à la machine virtuelle (vous pourrez toujours ajuster plus tard au besoin). Nous vous recommandons au _minimum_ 4 processeurs et 4096 MB de RAM.
 
 <img src="img/vbox_2b.png" style="width:800px"/>
 
@@ -89,7 +113,7 @@ _Avant_ de démarrer la machine virtuelle, configurez sa mémoire vidéo en fais
 
 ### 3.2. Lancement de la machine virtuelle ARM64
 
-Installez d'abord UTM en suivant [ce lien](https://mac.getutm.app/). Par la suite, téléchargez le fichier .zip et décompressez-le.
+Installez d'abord UTM en suivant [ce lien](https://mac.getutm.app/). Par la suite, téléchargez le fichier [SETR-H26-VM-ARM64.zip](http://wcours.gel.ulaval.ca/GIF3004/setrh26/SETR-H26-VM-ARM64.zip) et décompressez-le.
 
 **TODO**
 
@@ -97,10 +121,27 @@ Installez d'abord UTM en suivant [ce lien](https://mac.getutm.app/). Par la suit
 
 ### 4.1. Accès par SSH
 
-Par la suite, redémarrez le Raspberry Pi et vérifiez que vous pouvez vous connecter à distance via [SSH](https://chrisjean.com/ssh-tutorial-for-ubuntu-linux/) en utilisant votre installation Linux (e.g., la machine virtuelle). Nous vous suggérons de mettre en place une authentification par clé publique, pour vous éviter de devoir réécrire le même mot de passe à chaque connexion :
+#### 4.1.1 Test de connexion
+
+Commencez par ouvrir un terminal sur votre machine virtuelle (troisième icône du menu de gauche) et tentez de vous connecter à votre Raspberry Pi Zero :
+```
+ssh pi@adresse_ip_de_votre_raspberry_pi
+```
+
+Remplacez évidemment `adresse_ip_de_votre_raspberry_pi` par l'adresse IP que vous avez obtenue à l'étape 2.2.3 avant d'exécuter cette commande. Le terminal va d'abord vous avertir que "l'authenticité de cet hôte ne peut être établie" (c'est parce que vous vous connectez pour la première fois). Acceptez l'avertissement en écrivant `yes` dans le terminal. Par la suite, après quelques secondes, le terminal devrait vous demander le mot de passe de votre Raspberry Pi Zero (celui que vous avez choisi à l'étape 2.1.1). Une fois ce mot de passe écrit, pressez "Enter" et une connexion devrait s'établir, montrant l'invite de commande `pi@rpisetr` pour indiquer que vous avez maintenant une console ouverte sur le Raspberry Pi et non votre machine virtuelle.
+
+<img src="img/ssh1st.png" style="width:510px"/>
+
+> **Note importante** : votre ordinateur et le Raspberry Pi Zero doivent être connectés sur le *même* réseau sans-fil pour que la connexion puisse s'établir. Par exemple, si votre Raspberry Pi est connecté à `eduroam2`, mais que votre ordinateur (exécutant la machine virtuelle) est connecté à `UL_Visiteur_Guest`, la connexion ne fonctionnera **pas**!
+
+> *Note* : il est normal qu'aucun caractère ne s'affiche dans le terminal lorsque vous écrivez le mot de passe.
+
+#### 4.1.2 Configuration d'une authentification sans mot de passe
+
+Par la suite, redémarrez le Raspberry Pi et vérifiez que vous pouvez vous connecter à distance via [SSH](https://chrisjean.com/ssh-tutorial-for-ubuntu-linux/) en utilisant votre installation Linux (e.g., la machine virtuelle). Vous devez mettre en place une authentification par clé publique, pour vous éviter de devoir réécrire le même mot de passe à chaque connexion :
 
 ```
-# L'étape suivante est à effectuer sur votre machine virtuelle (PAS le Raspberry Pi) et n'est nécessaire que si vous n'avez pas déjà de clé SSH
+# L'étape suivante est à effectuer sur votre machine virtuelle
 $ ssh-keygen -t rsa -b 4096 -C "ecrivez_votre_nom_ici"
 # Pressez 3 fois sur Enter (les choix par défaut sont bons)
 
