@@ -143,6 +143,8 @@ Remplacez évidemment `adresse_ip_de_votre_raspberry_pi` par l'adresse IP que vo
 
 Par la suite, redémarrez le Raspberry Pi et vérifiez que vous pouvez vous connecter à distance via [SSH](https://chrisjean.com/ssh-tutorial-for-ubuntu-linux/) en utilisant votre installation Linux (e.g., la machine virtuelle). Vous devez mettre en place une authentification par clé publique, pour vous éviter de devoir réécrire le même mot de passe à chaque connexion :
 
+<details>
+<summary>Plus de détails</summary>
 ```
 # L'étape suivante est à effectuer sur votre machine virtuelle
 $ ssh-keygen -t rsa -b 4096 -C "ecrivez_votre_nom_ici"
@@ -151,6 +153,8 @@ $ ssh-keygen -t rsa -b 4096 -C "ecrivez_votre_nom_ici"
 # Cette étape est commune à toutes les installations, mais assurer-vous d'utiliser ici la bonne adresse
 $ ssh-copy-id pi@adresse_ip_de_votre_raspberry_pi
 ```
+
+</details>
 
 > Si tout fonctionne à ce stade, vous ne devriez plus avoir à brancher un clavier sur votre Raspberry Pi, puisque vous pourrez l'administrer à distance avec SSH, qui vous offre le même terminal que celui natif du Raspberry Pi.
 
