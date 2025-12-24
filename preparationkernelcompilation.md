@@ -8,7 +8,7 @@ title: "Laboratoire 1 : Préparation de la configuration de compilation du noyau
 
 Cette étape doit être effectuée directement sur le Raspberry Pi Zero W. Clonez le dépôt Git du noyau de Raspberry Pi OS (utilisez `apt` pour installer `git` si ce n'est pas déjà fait) :
 ```
-git clone -b rpi-6.12.y --depth=1 https://github.com/raspberrypi/linux
+git clone -b rpi-6.12.y --shallow-since=2025-12-03 https://github.com/raspberrypi/linux
 ```
 
 Pour s'assurer d'être exactement sur la même version que celle utilisée lors de la préparation du cours, modifiez le `HEAD` :
