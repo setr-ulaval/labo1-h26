@@ -92,6 +92,9 @@ Finalement, vous êtes libres d'utiliser votre propre installation _Linux_. Note
 Commencez par décompresser le fichier `SETR-H26-VM-x64.zip` téléchargé, il devrait contenir un unique fichier .vdi.
 Pour importer la machine virtuelle dans VirtualBox, cliquez sur *Nouvelle*. 
 
+<details>
+<summary>Plus de détails</summary>
+
 <img src="img/vbox_1.png" style="width:510px"/>
 
 Vous pouvez choisir le nom de la machine virtuelle, pour *Type* sélectionnez *Linux* et *Ubuntu (64bit)* pour *Version*. 
@@ -109,6 +112,9 @@ Dans la section _Hard Disk_, sélectionnez *Utiliser un fichier de disque dur vi
 _Avant_ de démarrer la machine virtuelle, configurez sa mémoire vidéo en faisant *Clic-droit/Configuration...*. Dans l'onglet "Affichage", ajustez la mémoire vidéo à *128 MB* et assurez vous que *Activer l'accélération 3D* est _désactivé_. La configuration de base est alors normalement terminée, vous pouvez valider et lancer la VM.
 
 <img src="img/vbox_4.png" style="width:800px"/>
+
+
+</details>
 
 > **Important**: la machine virtuelle peut être sensible aux fermetures inopinées. Assurez-vous de toujours éteindre correctement la VM (en utilisant bouton d'arrêt en haut à droite de l'écran de la VM) pour éviter tout problème de corruption de données qui vous forcerait à repartir de zéro. Si vous avez suffisamment d'espace disque, vous pouvez également prendre un _snapshot_ (cloner) la machine virtuelle une fois celle-ci configuré à l'issue de ce laboratoire, pour avoir une sauvegarde.
 
