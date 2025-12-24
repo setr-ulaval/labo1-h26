@@ -97,7 +97,7 @@ Pour importer la machine virtuelle dans VirtualBox, cliquez sur *Nouvelle*.
 
 <img src="img/vbox_1.png" style="width:510px"/>
 
-Vous pouvez choisir le nom de la machine virtuelle, pour *Type* sélectionnez *Linux* et *Ubuntu (64bit)* pour *Version*. 
+Vous pouvez choisir le nom de la machine virtuelle, pour *Type* sélectionnez <em>Linux</em> et *Ubuntu (64bit)* pour *Version*. 
 
 <img src="img/vbox_2.png" style="width:800px"/>
 
@@ -152,9 +152,9 @@ Par la suite, vous devez mettre en place une _authentification par clé publique
 <details>
 <summary>Plus de détails</summary>
 Ces commandes sont à effectuer sur votre machine virtuelle :
-```
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 $ ssh-keygen -t rsa -b 4096 -C "ecrivez_votre_nom_ici"
-```
+</code></pre></div></div>
 
 Pressez 3 fois sur Enter (les choix par défaut sont bons), puis exécutez la commande suivante en remplaçant adresse_ip_de_votre_raspberry_pi par l'adresse IP obtenue à l'étape 2.2.3.
 ```
