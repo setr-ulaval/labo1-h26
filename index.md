@@ -141,16 +141,17 @@ Remplacez évidemment `adresse_ip_de_votre_raspberry_pi` par l'adresse IP que vo
 
 #### 4.1.2 Configuration d'une authentification sans mot de passe
 
-Par la suite, redémarrez le Raspberry Pi et vérifiez que vous pouvez vous connecter à distance via [SSH](https://chrisjean.com/ssh-tutorial-for-ubuntu-linux/) en utilisant votre installation Linux (e.g., la machine virtuelle). Vous devez mettre en place une authentification par clé publique, pour vous éviter de devoir réécrire le même mot de passe à chaque connexion :
+Par la suite, vous devez mettre en place une _authentification par clé publique_, pour vous éviter de devoir réécrire le même mot de passe à chaque connexion.
 
 <details>
 <summary>Plus de détails</summary>
+Ces commandes sont à effectuer sur votre machine virtuelle :
 ```
-# L'étape suivante est à effectuer sur votre machine virtuelle
 $ ssh-keygen -t rsa -b 4096 -C "ecrivez_votre_nom_ici"
-# Pressez 3 fois sur Enter (les choix par défaut sont bons)
+```
 
-# Cette étape est commune à toutes les installations, mais assurer-vous d'utiliser ici la bonne adresse
+Pressez 3 fois sur Enter (les choix par défaut sont bons), puis exécutez la commande suivante en remplaçant adresse_ip_de_votre_raspberry_pi par l'adresse IP obtenue à l'étape 2.2.3.
+```
 $ ssh-copy-id pi@adresse_ip_de_votre_raspberry_pi
 ```
 
