@@ -55,9 +55,14 @@ export PATH=$PATH:$HOME/crosstool-bin/bin
 
 Clonez d'abord les sources de Linux, plus spécifiquement celles utilisées pour compiler le noyau plus tard (la commande `git reset --hard` permet de garantir que les sources utilisées seront toujours les mêmes que celles qui ont servi à préparer ce guide) :
 ```
-git clone -b rpi-6.12.y --depth=1 https://github.com/raspberrypi/linux linux-kernel-6.12-headers
+git clone -b rpi-6.12.y --shallow-since=2025-12-03 https://github.com/raspberrypi/linux linux-build
 cd linux-kernel-6.12-headers
 git reset --hard a8c4c464b753ef2273ae23cb79de4f9f05ce4ec7
+```
+
+> Note : l'option `shallow-since` évite de télécharger l'entièreté de l'historique Git du noyau Linux; toutefois, la taille téléchargée ira en augmentant au fil du temps. Si votre exécutable `git` est à la version 2.49.0 ou plus récente, l'option `--revision` peut être directement passée à `git clone` et éviter complètement d'avoir à recourir à `git reset` :
+```
+git clone -b rpi-6.12.y --depth=1 --revision=a8c4c464b753ef2273ae23cb79de4f9f05ce4ec7 https://github.com/raspberrypi/linux linux-build
 ```
 
 Appliquez la _patch_ `PREEMPT_RT` :
@@ -180,4 +185,4 @@ Ubuntu 24.0.3 peut être obtenu en version ARM64, mais seulement pour la version
 3. Suivre le [tutoriel suivant](https://itslinuxfoss.com/install-ubuntu-24-04-lts-macbook/) pour installer Ubuntu 24.04 et le transformer en version desktop
 4. La suite des étapes est la même que celles présentées plus haut pour la version x86-64, sauf que le package `.deb` à utiliser pour installer Visual Studio Code est [celui-ci](https://update.code.visualstudio.com/1.107.0/linux-deb-arm64/stable)
 
-> Note : pour une raison inconnue, le démarrage bloque pendant 2 minutes à l'activation du réseau ("NetworkManager-wait-online"). Hormis ce délai ennuyant, cela n'affecte pas la machine virtuelle (le réseau est bel et bien actif une fois le démarrage complété).
+> Note : pour une raison inconnue, le démarrage bloque pendant 2 minutes à l'activation du réseau ("NetworkManager-wait-online"). Bien que cela n'affecte pas la machine virtuelle (le réseau est bel et bien actif une fois le démarrage complété), il est possible de réduire le délai en ajustant la variable `Environment=NM_ONLINE_TIMEOUT` dans `/etc/systemd/system/network-online.target.wants/NetworkManager-wait-online.service`.

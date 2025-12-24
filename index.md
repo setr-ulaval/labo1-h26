@@ -67,6 +67,7 @@ Vous pouvez valider la connexion sans-fil en exécutant la commande `ip addr | g
 2. À la troisième ligne, vous fournir, après le mot `inet`, une adresse IPv4.
 
 Voici un exemple de résultat (l'adresse IP peut évidemment changer dans votre cas, dans ce cas-ci, il s'agit de `192.168.0.16`):
+
 <img src="img/ipaddr.png" style="width:510px"/>
 
 Notez cette adresse IP, elle vous servira à la prochaine étape.
@@ -82,11 +83,11 @@ Ce cours requiert l'utilisation d'un système GNU/Linux. Nous vous suggérons _f
 
 Le contenu de ces machines virtuelles est le même. Le nom d'utilisateur est `setr` et le mot de passe `setrh2026`. Nous expliquons à la section 3.1 comment la paramétrer. Dans tous les cas, vous aurez besoin d'environ 20 Go d'espace disque.
 
-Finalement, vous êtes libres d'utiliser votre propre installation _Linux_. Notez toutefois que nous ne pourrons vous offrir de support sur sa configuration et que vous devrez bâtir vous-mêmes l'environnement de compilation croisée.
+Finalement, vous êtes libres d'utiliser votre propre installation _Linux_. Notez toutefois que nous ne pourrons vous offrir de support sur sa configuration et que vous devrez bâtir vous-mêmes l'environnement de compilation croisée. Nous conseillons _fortement_ l'emploi de la machine virtuelle suggérée. Voyez l'annexe 1, en bas de cette présente page, pour plus de détails.
 
 
 
-### 3.1. Lancement de la machine virtuelle x86-64
+### 3.1. Lancement de la machine virtuelle x86-64 (pour tous les ordinateurs Windows et Linux et les ordinateurs Mac avec processeur Intel)
 
 Commencez par décompresser le fichier `SETR-H26-VM-x64.zip` téléchargé, il devrait contenir un unique fichier .vdi.
 Pour importer la machine virtuelle dans VirtualBox, cliquez sur *Nouvelle*. 
@@ -111,7 +112,7 @@ _Avant_ de démarrer la machine virtuelle, configurez sa mémoire vidéo en fais
 
 > **Important**: la machine virtuelle peut être sensible aux fermetures inopinées. Assurez-vous de toujours éteindre correctement la VM (en utilisant bouton d'arrêt en haut à droite de l'écran de la VM) pour éviter tout problème de corruption de données qui vous forcerait à repartir de zéro. Si vous avez suffisamment d'espace disque, vous pouvez également prendre un _snapshot_ (cloner) la machine virtuelle une fois celle-ci configuré à l'issue de ce laboratoire, pour avoir une sauvegarde.
 
-### 3.2. Lancement de la machine virtuelle ARM64
+### 3.2. Lancement de la machine virtuelle ARM64 (pour ordinateurs Mac avec processeur Mx)
 
 Installez d'abord UTM en suivant [ce lien](https://mac.getutm.app/). Par la suite, téléchargez le fichier [SETR-H26-VM-ARM64.zip](http://wcours.gel.ulaval.ca/GIF3004/setrh26/SETR-H26-VM-ARM64.zip) et décompressez-le.
 
@@ -125,8 +126,10 @@ Installez d'abord UTM en suivant [ce lien](https://mac.getutm.app/). Par la suit
 
 Commencez par ouvrir un terminal sur votre machine virtuelle (troisième icône du menu de gauche) et tentez de vous connecter à votre Raspberry Pi Zero :
 ```
-ssh pi@adresse_ip_de_votre_raspberry_pi
+$ ssh pi@adresse_ip_de_votre_raspberry_pi
 ```
+
+> Note : dans les énoncés, nous suivons la convention de faire précéder une commande à exécuter dans le terminal par un signe de dollar ($). Ce signe ne doit _pas_ être copié dans le terminal. Par exemple, dans ce cas-ci, il faut copier seulement `ssh pi@adresse_ip_de_votre_raspberry_pi`.
 
 Remplacez évidemment `adresse_ip_de_votre_raspberry_pi` par l'adresse IP que vous avez obtenue à l'étape 2.2.3 avant d'exécuter cette commande. Le terminal va d'abord vous avertir que "l'authenticité de cet hôte ne peut être établie" (c'est parce que vous vous connectez pour la première fois). Acceptez l'avertissement en écrivant `yes` dans le terminal. Par la suite, après quelques secondes, le terminal devrait vous demander le mot de passe de votre Raspberry Pi Zero (celui que vous avez choisi à l'étape 2.1.1). Une fois ce mot de passe écrit, pressez "Enter" et une connexion devrait s'établir, montrant l'invite de commande `pi@rpisetr` pour indiquer que vous avez maintenant une console ouverte sur le Raspberry Pi et non votre machine virtuelle.
 
@@ -155,9 +158,9 @@ $ ssh-copy-id pi@adresse_ip_de_votre_raspberry_pi
 
 Nous recommandons finalement l'installation et l'utilisation d'un résolveur DNS tel que [DuckDNS](http://duckdns.org) (gratuit), qui vous permettra de vous connecter plus facilement à votre Raspberry Pi en vous permettant d'utiliser un nom de domaine tel que "tarteauxframboises.duckdns.org" plutôt qu'une adresse IP pouvant potentiellement varier au fil de la session -- et qui vous forcera à brancher un écran pour l'obtenir.
 
-Pour ce faire connectez-vous à [Duck DNS](https://www.duckdns.org). Créez un nom pour votre RPi.
+Pour ce faire connectez-vous à [Duck DNS](https://www.duckdns.org). Créez un nom pour votre Raspberry Pi Zero. 
 
-Cependant, cette information n'est pas adéquate dans le contexte qui nous intéresse, comme on veut utiliser les adresses locales pour se connecter au RPi directement. Pour ce faire, nous avons déjà placé un [script shell](https://setr-ulaval.github.io/labo1-h26/etc/duckdns.sh) dans `/usr/local/bin/duckdns.sh` sur l'image de votre RPi, dont le contenu est le suivant :
+Il faut ensuite configurer le Raspberry Pi Zero pour mettre à jour son adresse IP à chaque démarrage. Pour ce faire, nous avons déjà placé un [script shell](https://setr-ulaval.github.io/labo1-h26/etc/duckdns.sh) dans `/usr/local/bin/duckdns.sh` sur l'image de votre Raspberry Pi Zero, dont le contenu est le suivant :
 
 ```
 #!/bin/bash
@@ -170,7 +173,7 @@ echo url="https://www.duckdns.org/update?domains=$DUCKDNS_DOMAINS&token=$DUCKDNS
 
 Changez les permissions permettant l'exécution du script avec la commande `sudo chmod +x /usr/local/bin/duckdns.sh`.
 
-Éditez ce fichier (avec nano) en changeant les variables `DUCKDNS_TOKEN` et `DUCKDNS_DOMAINS` par ceux que vous obtenez du site de Duck DNS. Ensuite, vous pouvez activer l'envoi automatique au démarrage en exécutant la commande `sudo systemctl enable updateIP.service`. Redémarrez votre RPi, et vous devriez pouvoir vous y connecter en utilisant une adresse de type VOTREDOMAINE.duckdns.org.
+Éditez ce fichier (avec nano) en changeant les variables `DUCKDNS_TOKEN` et `DUCKDNS_DOMAINS` par ceux que vous obtenez du site de Duck DNS. Ensuite, vous pouvez activer l'envoi automatique au démarrage en exécutant la commande `sudo systemctl enable updateIP.service`. Redémarrez votre Raspberry Pi Zero, et vous devriez pouvoir vous y connecter en utilisant une adresse de type VOTREDOMAINE.duckdns.org.
 
 
 
@@ -180,9 +183,9 @@ Le noyau Linux installé par défaut sur la carte MicroSD du Raspberry Pi n'est 
 1. La commande `uname -a` indique `PREEMPT_DYNAMIC` au lieu de `PREEMPT_RT`
 2. Le fichier `/sys/kernel/realtime` n'existe pas ou contient 0
 
-Au fil du cours, nous aurons besoin des capacités temps réel du noyau Linux. Hélas, il n'est pas possible de le reconfigurer, il faut le compiler à nouveau avec des options différentes. C'est donc la première chose que nous allons faire avec l'environnement de compilation croisée.
+Au fil du cours, nous aurons besoin des capacités temps réel du noyau Linux. Hélas, il n'est pas possible de le reconfigurer dynamiquement, il faut plutôt le compiler à nouveau avec des options différentes. C'est donc la première chose que nous allons faire avec l'environnement de compilation croisée.
 
-Pour ce faire, clonez d'abord les sources du noyau Linux (adapté au Raspberry Pi Zero) dans le dossier linux-build et sélectionner un commit particulier pour garantir que vous utilisez bien les mêmes fichiers source que ceux utilisés pour valider le laboratoire :
+Pour ce faire, clonez d'abord les sources du noyau Linux (adapté au Raspberry Pi Zero) dans le dossier linux-build et sélectionnez un commit en particulier pour garantir que vous utilisez bien les mêmes fichiers source que ceux utilisés pour valider le laboratoire :
 ```
 $ cd $HOME
 $ git clone -b rpi-6.12.y --depth=1 https://github.com/raspberrypi/linux linux-build
@@ -224,11 +227,13 @@ $ make -j4 ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- zImage modules dtbs
 
 > Note : remplacez le chiffre après le `j` dans la commande ci-dessus pour correspondre au nombre de processeurs que vous avez alloués à la machine virtuelle (par exemple `-j8`). Le temps de compilation avec 4 coeurs devrait être d'environ 8 minutes.
 
-> *Note importante :* si la compilation produit une erreur, réglez d'abord cette erreur avant de passer à la suite!
+> *Note importante :* si la compilation produit une erreur, réglez d'abord cette erreur avant de passer à la suite! La compilation devrait normalement se terminer par le message "Kernel: arch/arm/boot/zImage is ready".
 
-Il vous faut maintenant copier le noyau sur la carte MicroSD de votre Raspberry Pi Zero. Pour se faire, retirer la carte MicroSD de sa fente et utilisez un lecteur de carte SD/MicroSD pour la connecter à votre ordinateur. Ces lecteurs de carte sont des lecteurs USB et doivent être configurés pour être contrôlés _par votre machine virtuelle_.
+Il vous faut maintenant copier le noyau sur la carte MicroSD de votre Raspberry Pi Zero. Pour se faire, retirez la carte MicroSD de sa fente (une fois le Raspberry Pi Zero éteint correctement!) et utilisez un lecteur de carte SD/MicroSD pour la connecter à votre ordinateur. Ces lecteurs de carte sont des lecteurs USB et doivent être configurés pour être contrôlés _par votre machine virtuelle_.
 - Sur x86-64 (Intel ou AMD), allez dans le menu "Périphériques" en haut de la fenêtre de la machine virtuelle, développez la section "USB" et sélectionnez le périphérique correspondant à votre lecteur de cartes.
 - Sur ARM64 (Mac), cliquez sur la 4e icône à partir de la _droite_ (celle qui ressemble à un connecteur USB) et sélectionnez le périphérique correspondant à votre lecteur de cartes.
+
+> Note : la machine virtuelle ne peut pas prendre le contrôle du périphérique USB si celui-ci est déjà en cours d'utilisation ("monté") par le système principal exécutant la machine virtuelle. Assurez-vous que vous n'essayez _pas_ d'ouvrir les partitions présentes sur la carte microSD depuis le système principal.
 
 Cette manipulation devrait faire apparaître les partitions de la carte SD dans votre machine virtuelle. Dans votre dossier personnel, créez le dossier `carte_microsd` (qui sera le _point de montage_ des partitions présentes sur cette carte) en exécutant les commandes :
 ```
@@ -253,13 +258,14 @@ $ sudo cp arch/arm/boot/zImage ../carte_microsd/boot/kernel.img
 $ sudo cp arch/arm/boot/dts/broadcom/*.dtb ../carte_microsd/boot/
 $ sudo cp arch/arm/boot/dts/overlays/*.dtb* ../carte_microsd/boot/overlays/
 $ sudo cp arch/arm/boot/dts/overlays/README ../carte_microsd/boot/overlays/
+$ sync
 $ sudo umount ../carte_microsd/boot
 $ sudo umount ../carte_microsd/root
 ```
 
 > Certaines de ces étapes peuvent requérir jusqu'à 2 minutes, dépendemment de la vitesse de votre carte MicroSD et de celle de votre lecteur. Ne les interrompez pas.
 
-Une fois ces opérations terminées, réinsérez la carte MicroSD dans la fente du Raspberry Pi Zero W et redémarrez le. Vous pouvez vérifier que la procédure a bien fonctionné en exécutant `uname -a` (qui devrait afficher votre IDUL, tel qu'écrit dans le fichier `.config`) et en validant que :
+Une fois ces opérations terminées, réinsérez la carte MicroSD dans la fente du Raspberry Pi Zero W et redémarrez le. Vous pouvez vérifier que la procédure a bien fonctionné en exécutant `uname -a` sur le Raspberry Pi Zero (qui devrait afficher votre IDUL, tel qu'écrit dans le fichier `.config`) et en validant que (toujours sur le Raspberry Pi Zero, par exemple via une connexion SSH) :
 ```
 $ cat /sys/kernel/realtime 
 ```
@@ -270,11 +276,14 @@ ne retourne pas d'erreur de fichier inexistant et contient bien le chiffre `1`.
 
 Nous allons maintenant configurer un nouveau projet pour ce laboratoire.
 
+> La première fois que vous ouvrirez VSC, il vous demandera de créer un "nouveau trousseau de clés". Cela n'est pas obligatoire pour le cours, mais vous pouvez le faire si vous en voyez le besoin.
+
 ### 6.1. Création d'un nouveau projet
 
 Sur VSC, les projets sont simplement des dossiers. Créez donc dans votre dossier personnel un nouveau dossier nommé _projets_ puis, dans celui-ci, clonez le dépôt Git suivant :
 
 ```
+$ cd $HOME/projets
 $ git clone https://github.com/setr-ulaval/labo1-h26.git
 ```
 
@@ -288,28 +297,18 @@ Par la suite, dans VSC, allez dans `Fichier > Ouvrir un dossier` et sélectionne
 
 > **Important** : ouvrez bien le dossier _src_ et non la racine (labo1-h26), sinon les scripts de configuration ne fonctionneront pas!
 
-À l'ouverture d'un nouveau projet, VScode vous demande toujours si vous faites confiance au code que vous ouvrez. Assurez-vous de répondre oui et de cocher la case lui indiquant de faire également confiance au dossier parent, sinon le projet sera ouvert en mode limité.
+À l'ouverture d'un nouveau projet, VScode vous demande toujours si vous faites confiance au code que vous ouvrez. Répondez "oui" et cochez la case lui indiquant de faire également confiance au dossier parent, sinon le projet sera ouvert en mode limité.
 
 <img src="img/vsc_5.png" style="width:510px"/>
 
-
-Par la suite, quelques notifications apparaitront. Vous _devez_ configurer le projet à ce stade, en cliquant sur "Oui" à l'option "Voulez-vous configurer le projet src" :
-
-<img src="img/vsc_6.png" style="width:410px"/>
-
-Lorsque vous le faites, un menu s'ouvrira dans la portion supérieure de la fenêtre. **Assurez-vous de sélectionner "Unspecified" dans la liste des choix qui vous sont proposés** :
+Par la suite, quelques notifications apparaitront. Un menu s'ouvrira dans la portion supérieure de la fenêtre. **Assurez-vous de sélectionner "Unspecified" dans la liste des choix qui vous sont proposés** :
 
 <img src="img/vsc_7.png" style="width:800px"/>
 
-Par ailleurs, cliquez sur l'autre notification concernant la visibilité des options CMake et sélectionner "visible" dans le menu déroulant (cela n'est pas obligatoire, mais vous offre des raccourcis plus rapide pour compiler ou changer le mode de compilation) :
-
-<img src="img/vsc_8.png" style="width:800px"/>
 
 Une fois cela fait, vous devriez obtenir une sortie de terminal indiquant que CMake a terminé sa configuration avec succès (*Build files have been written to: ...*):
 
 <img src="img/vsc_9.png" style="width:800px"/>
-
-**TODO REFAIRE CAPTURE D'ÉCRAN**
 
 > À ce stade, validez également la version du compilateur utilisé par CMake. Si votre environnement est correctement configuré, elle **doit** être *14.3.0*, comme dans la capture d'écran ci-dessus. Si ce n'est pas le cas, c'est que vous avez fait une erreur durant la création de votre environnement et que les projets risquent de ne pas fonctionner.
 
@@ -322,9 +321,19 @@ VSC (et son extension C/C++) fournit plusieurs utilitaires pour faciliter la pro
 
 ### 6.2. Compilation croisée
 
-Il est maintenant temps de tester votre chaîne de compilation croisée. Dans VSC, allez dans le menu `Afficher`, puis `Palette de commandes`.
+Il est maintenant temps de tester votre chaîne de compilation croisée. Pour faciliter certains réglages, nous vous conseillons d'abord d'activer l'affichage systématique de la barre de status CMake. Pour ce faire, allez dans le menu `Afficher`, puis `Palette de commandes`.
 
 > Cette palette de commandes est la manière privilégiée d'interagir avec les outils de VSC. Dans la suite des énoncés, nous l'appelerons simplement "Palette". Vous gagnerez probablement du temps à mémoriser le raccourci clavier permettant de l'ouvrir (Ctrl-Shift-P dans la VM, par exemple)!
+
+Dans la ligne d'édition qui apparaît en haut de l'écran, écrivez `CMake settings` (remarquez comment VSC modifie ses suggestions au fur et à mesure), puis sélectionnez `Open CMake Tools Extension Settings`. 
+
+
+<img src="img/vsc_cmake_settings.png" style="width:800px"/>
+
+Dans le nouvel onglet affiché, recherchez le réglage `Status Bar Visibility` et assignez lui la valeur `visible`.
+
+
+<img src="img/vsc_8.png" style="width:800px"/>
 
 Dans la ligne d'édition qui apparaît en haut de l'écran, écrivez `CMake` (remarquez comment VSC modifie ses suggestions au fur et à mesure), puis sélectionnez `CMake Build`. 
 
