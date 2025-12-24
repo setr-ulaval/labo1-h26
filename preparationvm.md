@@ -21,7 +21,7 @@ Une fois le premier démarrage effectué, installez les "VirtualBox Additions" (
 
 Installez les paquets suivants (avec apt) :
 ```
-sudo apt install autoconf bison flex git cmake build-essential texinfo help2man libtool libtool-bin libncurses-dev
+sudo apt install autoconf bison flex git cmake build-essential texinfo help2man libtool libtool-bin libncurses-dev libssl-dev
 ```
 
 Installez ensuite Visual Studio Code (testé avec la version 1.107)

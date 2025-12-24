@@ -48,9 +48,9 @@ Mechanism=none
 EOF
 ```
 
-Le cours nécessite également l'installation de deux paquets logiciels supplémentaires (et leur dépendances):
+Le cours nécessite également l'installation de trois paquets logiciels supplémentaires (et leur dépendances):
 ```
-sudo apt install libfuse-dev libcurl4-openssl-dev
+sudo apt install libfuse-dev libcurl4-openssl-dev gdbserver
 ```
 
 ## 4. Ajustement de la configuration de démarrage
