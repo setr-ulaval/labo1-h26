@@ -392,41 +392,6 @@ Finalement, vous devez corriger le code de manière à ce que GCC ne renvoie plu
 
 
 
-
-
-
-
-
-
-
-## Optionnel : Installation de l'environnement de compilation croisée avec Crosstool-NG
-
-> Cette section vous concerne **uniquement** si vous n'utilisez **pas** la machine virtuelle fournie.
-
-Voyez [cette page](https://setr-ulaval.github.io/labo1-h25/xcompilation.html) pour tous les détails sur l'installation de Crosstool-NG et la création de l'environnement de compilation croisée.
-
-
-## 5. Configuration de l'environnement de développement
-
-Dans le cadre du cours, nous allons utiliser [Visual Studio Code](https://packages.microsoft.com/yumrepos/vscode/Packages/c/code-1.83.1-1696982959.el7.x86_64.rpm) (ci-après abbrévié VSC). Nous vous recommandons de ne pas utiliser une version plus récente que 1.83.1 (la version présente dans la VM et avec laquelle le laboratoire a été testée). Il n'y a toutefois pas de contre-indication particulière à utiliser une version plus récente, mais certaines options de configuration ou de débogage pourraient être différentes. Vous êtes par ailleurs libres d'utiliser un autre environnement de développement, à votre convenance, mais vous _devez obligatoirement_ travailler en compilation croisée (autrement dit, le binaire doit être compilé sur _votre_ ordinateur et non le Raspberry Pi, et vous devez être en mesure de déboguer à partir de votre ordinateur) et nous ne pourrons potentiellement pas vous aider si vous choisissez un autre logiciel.
-
-
-### 5.1. Installer les extensions requises par VSC
-
-Une fois VSC ouvert, sélectionnez l'interface de recherche des extensions en cliquant sur la cinquième icône dans la barre de gauche. Par la suite, recherchez l'extension "C/C++ Extension Pack" et installez le premier résultat. Faites de même pour l'extension "Native Debug":
-
-<img src="img/vsc_1.png" style="width:410px"/> 
-<img src="img/vsc_2.png" style="width:410px"/>
-
-
-> **Vous devez installer les extensions suivantes :** `C/C++ Extension Pack` et `Native Debug`. Les extensions `CMake` et `Cmake Tools` devraient avoir été installées automatiquement.
-
-
-<img src="img/vsc_4.png" style="width:510px"/>
-
-
-
-
 ## 7. Modalités d'évaluation
 
 Ce travail est **individuel**. Ce travail compte pour **4%** de la note totale du cours. La moitié de la note (2%) est évaluée en personne lors de l'atelier (voir section 7.1), l'autre moitié (2%) par un questionnaire sur MonPortail. Aucun rapport n'est à remettre, mais vous devez être en mesure de démontrer que votre environnement de développement est fonctionnel et que vous savez utiliser ses fonctions basiques lors de l'évaluation au PLT-0103. Cette évaluation sera faite lors de la séance d'atelier du **30 janvier 2026**. 
@@ -450,7 +415,7 @@ Le questionnaire associé sur MonPortail doit également être complété pour *
 ## 8. Ressources et lectures connexes
 
 * [Duck DNS](https://www.duckdns.org/)
-* La [documentation de Raspbian](https://www.raspbian.org/RaspbianDocumentation), la distribution Linux sur laquelle est basée l'image du cours.
+* La [documentation de Raspberry Pi OS](https://www.raspberrypi.com/documentation/computers/os.html), la distribution Linux sur laquelle est basée l'image du cours.
 * La [documentation de GCC](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html) à propos des messages d'avertissement.
 * La [documentation de CrossTool-NG](https://crosstool-ng.github.io/docs/), que nous utilisons pour générer la chaîne de compilation.
 * La [documentation de Visual Studio Code](https://code.visualstudio.com/docs), que vous pouvez parcourir pour trouver des fonctionnalités intéressantes et pratiques pour les prochains laboratoires
@@ -459,9 +424,9 @@ Le questionnaire associé sur MonPortail doit également être complété pour *
 
 Nous fournissons ici les étapes nécessaires pour créer manuellement :
 1. L'image Raspbian pour le Raspberry Pi Zero W;
-2. La machine virtuelle contenant l'environnement de compilation croisée optimisé pour le Raspberry Pi Zero W;
+2. La machine virtuelle contenant l'environnement de compilation croisée optimisé pour le Raspberry Pi Zero W (ou l'installation de l'environnement de compilation croisée sur une installation Linux existante)
 3. La configuration initiale du noyau pour sa compilation.
 
-> **NOTE IMPORTANTE** : cette section _NE FAIT PAS_ partie de ce qui est requis pour ce laboratoire. Elle n'est présentée qu'à titre informatif pour permettre à ceux qui voudraient utiliser leur propre environnement (une autre distribution Linux, par exemple) pour effectuer les laboratoires du cours. Nous ne fournirons _aucun_ support pour des installations personnalisées. Vous n'avez **pas** à suivre les instructions fournies dans ces pages liées pour réussir le laboratoire.
+> **NOTE IMPORTANTE** : cette section _NE FAIT PAS_ partie de ce qui est requis pour ce laboratoire. Elle n'est présentée qu'à titre informatif pour permettre à ceux qui voudraient utiliser leur propre environnement (une autre distribution Linux, par exemple) pour effectuer les laboratoires du cours. Nous ne fournirons _aucun_ support pour des installations personnalisées. Ne suivez ces instructions que si vous êtes certains de ce que vous faites : le contenu de ces instructions complémentaire ne sera **pas** évalué, que ce soit lors de ce laboratoire ou à l'examen.
 
 Commencez par créer l'image Raspbian en suivant [ces instructions](https://setr-ulaval.github.io/labo1-h26/rpicreationimage.html). Créez ensuite votre environnement de compilation croisée (dans une machine virtuelle ou pas) en suivant [les étapes décrites ici.](https://setr-ulaval.github.io/labo1-h26/preparationvm.html) Finalement, préparez votre configuration du noyau Linux pour le Raspberry Pi Zero W en suivant [les instructions détaillées ici.](https://setr-ulaval.github.io/labo1-h26/preparationkernelcompilation.html).
