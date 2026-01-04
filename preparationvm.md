@@ -182,7 +182,8 @@ Ubuntu 24.0.3 peut être obtenu en version ARM64, mais seulement pour la version
 
 1. Installer [UTM](https://mac.getutm.app/) (testé avec la version 4.6.4)
 2. Télécharger [Ubuntu Server for ARM 24.04.3](https://cdimage.ubuntu.com/releases/24.04/release/ubuntu-24.04.3-live-server-arm64.iso)
-3. Suivre le [tutoriel suivant](https://itslinuxfoss.com/install-ubuntu-24-04-lts-macbook/) pour installer Ubuntu 24.04 et le transformer en version desktop
+3. Suivre le [tutoriel suivant](https://itslinuxfoss.com/install-ubuntu-24-04-lts-macbook/) pour installer Ubuntu 24.04 et le transformer en version desktop (ne _pas_ activer l'accélération hardware OpenGL contrairement à ce qui est suggéré, cela pose problème avec VScode)
 4. La suite des étapes est la même que celles présentées plus haut pour la version x86-64, sauf que le package `.deb` à utiliser pour installer Visual Studio Code est [celui-ci](https://update.code.visualstudio.com/1.107.0/linux-deb-arm64/stable)
+5. Pour pouvoir utiliser les dossiers partagés entre VM et hôte, il faut en plus installer (avec apt) les paquets `spice-vdagent`, `spice-webdavd`, et `davfs2`. Voir [cette page](https://dev.to/ajeebkp23/how-to-access-shared-folders-in-utm-ubuntu-vm-590n) pour plus de détails. Il faut également modifier, dans les propriétés de la machine virtuelle UTM, section `Sharing`, la configuration `Directory Share Mode` pour `SPICE WebDAV`.
 
 > Note : pour une raison inconnue, le démarrage bloque pendant 2 minutes à l'activation du réseau ("NetworkManager-wait-online"). Bien que cela n'affecte pas la machine virtuelle (le réseau est bel et bien actif une fois le démarrage complété), il est possible de réduire le délai en ajustant la variable `Environment=NM_ONLINE_TIMEOUT` dans `/etc/systemd/system/network-online.target.wants/NetworkManager-wait-online.service`.

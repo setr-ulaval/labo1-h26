@@ -15,14 +15,39 @@ Ce travail pratique vise les objectifs suivants :
 
 ### 1.1 Survol du laboratoire
 
-Ce laboratoire vise à la mise en place de l'environnement de programmation que nous utiliserons tout au long de la session. Celui-ci se base, d'une part, sur un Raspberry Pi Zero W (en tant que système embarqué) et, d'autre part, sur une machine virtuelle Linux (en tant qu'environnement de développement et de compilation). Dans ce laboratoire, nous verrons comment configurer le Raspberry Pi Zero W et installer la machine virtuelle de développement. Par la suite, nous compilerons un noyau Linux temps réel (`PREEMPT_RT`) pour le Raspberry Pi Zero W et validerons son fonctionnement. Finalement, vous aurez à compiler, exécuter, puis déboguer un programme C simple pour valider le bon fonctionnement de votre matériel.
+Dans ce laboratoire, vous devrez :
+
+1. Configurer votre Raspberry Pi Zero W pour le connecter au WiFi et en prendre le contrôle à distance;
+2. Installer et configurer la machine virtuelle contenant l'environnement de programmation du cours;
+3. Utiliser cet environnement pour compiler et installer un noyau (kernel) Linux temps réel sur votre Raspberry Pi Zero W;
+4. Compiler et déboguer un programme C simple en compilation croisée.
 
 > **Important :** le Raspberry Pi étant un ordinateur à part entière, il est techniquement possible de n'utiliser que ce dernier et y travailler localement en se passant de l'environnement de développement à distance. Cela n'est toutefois pas représentatif du développement des systèmes embarqués en pratique, où il est souvent impossible de travailler directement sur le matériel cible, que ce soit par manque de puissance ou par d'autres problèmes pratiques (pensons par exemple à un Raspberry Pi embarqué dans un dispositif lourd et encombrant). De plus, pour beaucoup de travaux, la puissance limitée du Raspberry Pi Zero W et son nombre de ports limité rendraient malaisée une telle utilisation. Par exemple, dans le cadre de ce premier laboratoire, la compilation du noyau Linux devrait requérir moins d'une dizaine de minutes sur votre machine virtuelle, mais demanderait plus d'une heure sur le Raspberry Pi Zero! Pour toutes ces raisons, dans le cadre du cours, *il vous est interdit d'utiliser le Raspberry Pi de cette manière*, sauf lorsque qu'expressément autrement mentionné dans un énoncé ou autorisé par le professeur.
 
+### 1.2 Choix du niveau de détails
+
+Les énoncés de laboratoire sont conçus pour donner un niveau de détails suffisant pour tout le monde. Toutefois, il se peut que vous sachiez déjà comment réaliser certaines tâches. Dans cette optique, les instructions sont généralement divisées en 2 portions :
+
+1. Ce que vous _devez_ faire
+2. _Comment_ vous pouvez le faire
+
+La partie 1 est toujours affichée. Afin d'alléger l'énoncé, la partie 2 est, quant à elle, souvent cachée sous un bloc _Plus de détails_, semblable à celui-ci :
+
+<details>
+<summary>Plus de détails</summary>
+Ceci décrit des détails supplémentaires sur la manière suggérée de réaliser l'action demandée.
+</details>
+
+Vous êtes libres de sauter ces sections si vous êtes certains de savoir comment faire. Toutefois, avant de poser une question, assurez-vous que vous n'avez pas oublié de consulter l'un de ces blocs.
 
 ## 2. Préparation du Raspberry Pi
 
-La carte MicroSD du kit qui vous a été fourni **contient déjà** l'image système nécessaire au cours. Toutefois, dans le cas où vous recevez un kit avec une MicroSD non-initialisée, que vous voudriez revenir à l'état initial de l'image, ou simplement créer une copie, vous pouvez télécharger le fichier *.img* contenant l'[image du cours](http://wcours.gel.ulaval.ca/GIF3004/setrh26/setr2026_rpizero_image.zip). Ce fichier (une fois extrait de l'archive ZIP) doit être copié en mode bas niveau sur une carte MicroSD d'une capacité d'au moins *32 GB* (par exemple en utilisant `dd` sous Linux, ou un programme tel que [Rufus](https://rufus.ie/en/) sur Windows).
+La carte MicroSD du kit qui vous a été fourni **contient déjà** l'image système nécessaire au cours. Toutefois, dans le cas où vous recevez un kit avec une MicroSD non-initialisée, que vous voudriez revenir à l'état initial de l'image, ou simplement créer une copie, vous pouvez télécharger le fichier *.img* contenant l'[image du cours](http://wcours.gel.ulaval.ca/GIF3004/setrh26/setr2026_rpizero_image.zip).
+
+<details>
+<summary>Plus de détails</summary>
+Ce fichier (une fois extrait de l'archive ZIP) doit être copié en mode bas niveau (pas seulement une copie du fichier lui-même!) sur une carte MicroSD d'une capacité d'au moins *32 GB* (par exemple en utilisant `dd` sous Linux, ou un programme tel que [Rufus](https://rufus.ie/en/) sur Windows).
+</details>
 
 
 ### 2.1. Démarrage et changement de mot de passe
@@ -50,8 +75,11 @@ Ensuite, vous devez configurer votre Raspberry Pi pour qu'il se connecte au rés
 
 Si vous êtes sur le campus, nous vous suggérons d'utiliser Eduroam2 (le réseau accessible au laboratoire). Nous vous fournissons déjà un fichier de configuration pour ce réseau dans `/etc/NetworkManager/system-connections/eduroam2.nmconnection`. Éditez ce fichier pour y ajouter votre IDUL et votre NIP, puis redémarrez le Raspberry Pi avec la commande `sudo reboot`. 
 
-> Note : si vous n'êtes pas familier avec les éditeurs de texte en console, nous vous suggérons d'utiliser `nano` (par exemple, dans ce cas-ci, `sudo nano /etc/NetworkManager/system-connections/eduroam2.nmconnection`). Une fois vos modifications effectuées, utilisez Ctrl+X pour quitter, puis Y (pour enregistrer vos modifications) et Enter (pour conserver le même nom de fichier). Si vous êtes familiers avec d'autres éditeurs, vous êtes évidemment libre de les utiliser.
 
+<details>
+<summary>Plus de détails sur l'édition en ligne de commande</summary>
+Si vous n'êtes pas familier avec les éditeurs de texte en console, nous vous suggérons d'utiliser `nano` (par exemple, dans ce cas-ci, `sudo nano /etc/NetworkManager/system-connections/eduroam2.nmconnection`). Une fois vos modifications effectuées, utilisez Ctrl+X pour quitter, puis Y (pour enregistrer vos modifications) et Enter (pour conserver le même nom de fichier). Si vous êtes familier avec d'autres éditeurs, vous êtes évidemment libre de les utiliser.
+</details>
 
 #### 2.2.2. Votre propre réseau
 
@@ -78,38 +106,38 @@ Notez cette adresse IP, elle vous servira à la prochaine étape.
 
 Ce cours requiert l'utilisation d'un système GNU/Linux. Nous vous suggérons _fortement_ d'utiliser la machine virtuelle basée sur Ubuntu 24.04 et configurée spécifiquement pour le cours. Nous offrons deux versions de cette machine virtuelle :
 
-- Une version x86-64, au format VirtualBox (VDI), adaptée aux ordinateurs utilisant un **processeur x86-64 (Intel ou AMD)**. C'est le cas pour les ordinateurs sous Windows, Linux et les Mac utilisant un processeur Intel. Elle est disponible à [l'adresse suivante](http://wcours.gel.ulaval.ca/GIF3004/setrh26/SETR-H26-VM-x64.zip) (attention, téléchargement de 7.5 Go).
-- Une version ARM64, au format UTM, **adaptée aux Mac utilisant un processeur Apple Mx**, où x est un nombre de 1 à 5. Elle est disponible à [l'adresse suivante](http://wcours.gel.ulaval.ca/GIF3004/setrh26/SETR-H26-VM-ARM64.zip) (attention, téléchargement de 7.5 Go).
+- Une version x86-64, au format VirtualBox (VDI), adaptée aux ordinateurs utilisant un **processeur x86-64 (Intel ou AMD)**. C'est le cas pour les ordinateurs sous Windows, Linux et les Mac utilisant un processeur Intel. Elle est disponible à [l'adresse suivante](http://wcours.gel.ulaval.ca/GIF3004/setrh26/SETR-H26-VM-x64.zip) (attention, téléchargement de 7.5 Go). Voyez la section 3.1 pour plus de détails sur l'installation.
+- Une version ARM64, au format UTM, **adaptée aux Mac utilisant un processeur Apple Mx**, où x est un nombre de 1 à 5. Elle est disponible à [l'adresse suivante](http://wcours.gel.ulaval.ca/GIF3004/setrh26/SETR-H26-VM-ARM64.utm.zip) (attention, téléchargement de 7.5 Go). Voyez la section 3.2 pour plus de détails sur l'installation.
 
-Le contenu de ces machines virtuelles est le même. Le nom d'utilisateur est `setr` et le mot de passe `setrh2026`. Nous expliquons à la section 3.1 comment la paramétrer. Dans tous les cas, vous aurez besoin d'environ 20 Go d'espace disque.
+Le contenu de ces machines virtuelles est le même. Le nom d'utilisateur est `setr` et le mot de passe `setrh2026`. Nous expliquons à la section 3.1 comment la paramétrer. Dans tous les cas, vous aurez besoin d'environ 25 Go d'espace disque.
 
-Finalement, vous êtes libres d'utiliser votre propre installation _Linux_. Notez toutefois que nous ne pourrons vous offrir de support sur sa configuration et que vous devrez bâtir vous-mêmes l'environnement de compilation croisée. Nous conseillons _fortement_ l'emploi de la machine virtuelle suggérée. Voyez l'annexe 1, en bas de cette présente page, pour plus de détails.
+Finalement, vous êtes libres d'utiliser votre propre installation _Linux_. Notez toutefois que nous ne pourrons vous offrir de support sur sa configuration et que vous devrez bâtir vous-mêmes l'environnement de compilation croisée. Nous conseillons _fortement_ l'emploi de la machine virtuelle suggérée, au moins comme plan B. Voyez l'annexe 1, en bas de cette présente page, pour plus de détails.
 
 
 
 ### 3.1. Lancement de la machine virtuelle x86-64 (pour tous les ordinateurs Windows et Linux et les ordinateurs Mac avec processeur Intel)
 
-Commencez par décompresser le fichier `SETR-H26-VM-x64.zip` téléchargé, il devrait contenir un unique fichier .vdi.
-Pour importer la machine virtuelle dans VirtualBox, cliquez sur *Nouvelle*. 
+Commencez par décompresser le fichier `SETR-H26-VM-x64.zip` téléchargé, il devrait contenir un unique fichier `.vdi`. Importez-le en créant une nouvelle machine virtuelle Ubuntu et en le sélectionnant comme support de stockage.=
 
 <details>
-<summary>Plus de détails</summary>
+<summary>Plus de détails sur l'installation de la machine virtuelle VirtualBox</summary>
+Pour importer la machine virtuelle dans VirtualBox, cliquez sur *Nouvelle*.<br>
 
-<img src="img/vbox_1.png" style="width:510px"/>
+<img src="img/vbox_1.png" style="width:510px"/><br>
 
-Vous pouvez choisir le nom de la machine virtuelle, pour *Type* sélectionnez <em>Linux</em> et *Ubuntu (64bit)* pour *Version*. 
+Vous pouvez choisir le nom de la machine virtuelle, pour *Type* sélectionnez <em>Linux</em> et *Ubuntu (64bit)* pour *Version*. <br>
 
-<img src="img/vbox_2.png" style="width:800px"/>
+<img src="img/vbox_2.png" style="width:800px"/><br>
 
-Dans la section _Hardware_, choisissez la mémoire et le nombre de CPU que vous allez allouer à la machine virtuelle (vous pourrez toujours ajuster plus tard au besoin). Nous vous recommandons au _minimum_ 4 processeurs et 4096 MB de RAM.
+Dans la section _Hardware_, choisissez la mémoire et le nombre de CPU que vous allez allouer à la machine virtuelle (vous pourrez toujours ajuster plus tard au besoin). Nous vous recommandons au _minimum_ 4 processeurs et 4096 MB de RAM.<br>
 
-<img src="img/vbox_2b.png" style="width:800px"/>
+<img src="img/vbox_2b.png" style="width:800px"/><br>
 
-Dans la section _Hard Disk_, sélectionnez *Utiliser un fichier de disque dur virtuel existant* et choisissez le fichier .vdi (provenant de l'archive décompressée) en cliquant qur l'icône en forme de dossier. Cliquez sur "Terminer" pour compléter la configuration.
+Dans la section _Hard Disk_, sélectionnez *Utiliser un fichier de disque dur virtuel existant* et choisissez le fichier .vdi (provenant de l'archive décompressée) en cliquant qur l'icône en forme de dossier. Cliquez sur "Terminer" pour compléter la configuration.<br>
 
-<img src="img/vbox_3.png" style="width:800px"/>
+<img src="img/vbox_3.png" style="width:800px"/><br>
 
-_Avant_ de démarrer la machine virtuelle, configurez sa mémoire vidéo en faisant *Clic-droit/Configuration...*. Dans l'onglet "Affichage", ajustez la mémoire vidéo à *128 MB* et assurez vous que *Activer l'accélération 3D* est _désactivé_. La configuration de base est alors normalement terminée, vous pouvez valider et lancer la VM.
+_Avant_ de démarrer la machine virtuelle, configurez sa mémoire vidéo en faisant *Clic-droit/Configuration...*. Dans l'onglet "Affichage", ajustez la mémoire vidéo à *128 MB* et assurez vous que *Activer l'accélération 3D* soit _désactivé_. La configuration de base est alors normalement terminée, vous pouvez valider et lancer la VM.<br>
 
 <img src="img/vbox_4.png" style="width:800px"/>
 
@@ -120,9 +148,20 @@ _Avant_ de démarrer la machine virtuelle, configurez sa mémoire vidéo en fais
 
 ### 3.2. Lancement de la machine virtuelle ARM64 (pour ordinateurs Mac avec processeur Mx)
 
-Installez d'abord UTM en suivant [ce lien](https://mac.getutm.app/). Par la suite, téléchargez le fichier [SETR-H26-VM-ARM64.zip](http://wcours.gel.ulaval.ca/GIF3004/setrh26/SETR-H26-VM-ARM64.zip) et décompressez-le.
+Commencez par décompresser le fichier SETR-H26-VM-ARM64.utm.zip téléchargé, il devrait contenir un unique fichier `.utm`. Par la suite, importez-le dans UTM.
 
-**TODO**
+<details>
+<summary>Plus de détails sur l'installation de la machine virtuelle UTM</summary>
+Installez d'abord UTM en suivant [ce lien](https://mac.getutm.app/). Ensuite, ouvrez l'application et sélectionnez `Create a New Virtual Machine` :<br>
+
+<img src="img/utm_1.png" style="width:510px"/><br>
+
+Dans la fenêtre qui s'affiche, cliquez sur l'option `Open` (dans le bas) :<br>
+
+<img src="img/utm_2.png" style="width:510px"/><br>
+
+Vous pouvez par la suite modifier la quantité de RAM et le nombre de coeurs CPU alloués à la machine virtuelle, mais nous vous conseillons fortement de conserver au _minimum_ 4096 MB de RAM et 4 coeurs. La machine peut par la suite être lancée en cliquant sur le bouton "Play" dans le menu de gauche.
+</details>
 
 ## 4. Configuration de la connexion à distance
 
@@ -130,36 +169,43 @@ Installez d'abord UTM en suivant [ce lien](https://mac.getutm.app/). Par la suit
 
 #### 4.1.1 Test de connexion
 
+Validez que vous êtes capables de vous connecter à votre machine virtuelle par SSH, sur un terminal.
+
+
+<details>
+<summary>Plus de détails sur l'établissement d'une connexion SSH</summary>
+
 Commencez par ouvrir un terminal sur votre machine virtuelle (troisième icône du menu de gauche) et tentez de vous connecter à votre Raspberry Pi Zero :
-```
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 $ ssh pi@adresse_ip_de_votre_raspberry_pi
-```
+</code></pre></div></div>
 
 > Note : dans les énoncés, nous suivons la convention de faire précéder une commande à exécuter dans le terminal par un signe de dollar ($). Ce signe ne doit _pas_ être copié dans le terminal. Par exemple, dans ce cas-ci, il faut copier seulement `ssh pi@adresse_ip_de_votre_raspberry_pi`.
 
-Remplacez évidemment `adresse_ip_de_votre_raspberry_pi` par l'adresse IP que vous avez obtenue à l'étape 2.2.3 avant d'exécuter cette commande. Le terminal va d'abord vous avertir que "l'authenticité de cet hôte ne peut être établie" (c'est parce que vous vous connectez pour la première fois). Acceptez l'avertissement en écrivant `yes` dans le terminal. Par la suite, après quelques secondes, le terminal devrait vous demander le mot de passe de votre Raspberry Pi Zero (celui que vous avez choisi à l'étape 2.1.1). Une fois ce mot de passe écrit, pressez "Enter" et une connexion devrait s'établir, montrant l'invite de commande `pi@rpisetr` pour indiquer que vous avez maintenant une console ouverte sur le Raspberry Pi et non votre machine virtuelle.
+Remplacez évidemment `adresse_ip_de_votre_raspberry_pi` par l'adresse IP que vous avez obtenue à l'étape 2.2.3 avant d'exécuter cette commande. Le terminal va d'abord vous avertir que "l'authenticité de cet hôte ne peut être établie" (c'est parce que vous vous connectez pour la première fois). Acceptez l'avertissement en écrivant `yes` dans le terminal. Par la suite, après quelques secondes, le terminal devrait vous demander le mot de passe de votre Raspberry Pi Zero (celui que vous avez choisi à l'étape 2.1.1). Une fois ce mot de passe écrit, pressez "Enter" et une connexion devrait s'établir, montrant l'invite de commande `pi@rpisetr` pour indiquer que vous avez maintenant une console ouverte sur le Raspberry Pi et non votre machine virtuelle.<br>
 
-<img src="img/ssh1st.png" style="width:510px"/>
-
-> **Note importante** : votre ordinateur et le Raspberry Pi Zero doivent être connectés sur le *même* réseau sans-fil pour que la connexion puisse s'établir. Par exemple, si votre Raspberry Pi est connecté à `eduroam2`, mais que votre ordinateur (exécutant la machine virtuelle) est connecté à `UL_Visiteur_Guest`, la connexion ne fonctionnera **pas**!
+<img src="img/ssh1st.png" style="width:510px"/><br>
 
 > *Note* : il est normal qu'aucun caractère ne s'affiche dans le terminal lorsque vous écrivez le mot de passe.
+</details>
+
+> **Note importante** : votre ordinateur et le Raspberry Pi Zero doivent être connectés sur le *même* réseau sans-fil pour que la connexion puisse s'établir. Par exemple, si votre Raspberry Pi est connecté à `eduroam2`, mais que votre ordinateur (exécutant la machine virtuelle) est connecté à `UL_Visiteur_Guest`, la connexion ne fonctionnera **pas**!
 
 #### 4.1.2 Configuration d'une authentification sans mot de passe
 
 Par la suite, vous devez mettre en place une _authentification par clé publique_, pour vous éviter de devoir réécrire le même mot de passe à chaque connexion.
 
 <details>
-<summary>Plus de détails</summary>
+<summary>Plus de détails sur l'authentification sans mot de passe</summary>
 Ces commandes sont à effectuer sur votre machine virtuelle :
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 $ ssh-keygen -t rsa -b 4096 -C "ecrivez_votre_nom_ici"
 </code></pre></div></div>
 
 Pressez 3 fois sur Enter (les choix par défaut sont bons), puis exécutez la commande suivante en remplaçant adresse_ip_de_votre_raspberry_pi par l'adresse IP obtenue à l'étape 2.2.3.
-```
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 $ ssh-copy-id pi@adresse_ip_de_votre_raspberry_pi
-```
+</code></pre></div></div>
 
 </details>
 
@@ -169,23 +215,27 @@ $ ssh-copy-id pi@adresse_ip_de_votre_raspberry_pi
 
 Nous recommandons finalement l'installation et l'utilisation d'un résolveur DNS tel que [DuckDNS](http://duckdns.org) (gratuit), qui vous permettra de vous connecter plus facilement à votre Raspberry Pi en vous permettant d'utiliser un nom de domaine tel que "tarteauxframboises.duckdns.org" plutôt qu'une adresse IP pouvant potentiellement varier au fil de la session -- et qui vous forcera à brancher un écran pour l'obtenir.
 
+
+<details>
+<summary>Plus de détails sur l'utilisation d'un résolveur DNS</summary>
 Pour ce faire connectez-vous à [Duck DNS](https://www.duckdns.org). Créez un nom pour votre Raspberry Pi Zero. 
 
 Il faut ensuite configurer le Raspberry Pi Zero pour mettre à jour son adresse IP à chaque démarrage. Pour ce faire, nous avons déjà placé un [script shell](https://setr-ulaval.github.io/labo1-h26/etc/duckdns.sh) dans `/usr/local/bin/duckdns.sh` sur l'image de votre Raspberry Pi Zero, dont le contenu est le suivant :
 
-```
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 #!/bin/bash
 DUCKDNS_LOCALIP=`hostname -I`
 DUCKDNS_TOKEN=ECRIRE VOTRE TOKEN DUCKDNS ICI
 DUCKDNS_DOMAINS=ECRIRE VOTRE DOMAINS DUCKDNS ICI
 DUCKDNS_LOGFILE=/var/log/duckdns.log
 echo url="https://www.duckdns.org/update?domains=$DUCKDNS_DOMAINS&token=$DUCKDNS_TOKEN&ip=$DUCKDNS_LOCALIP" | curl -k -o $DUCKDNS_LOGFILE -K -
-```
+</code></pre></div></div>
 
 Changez les permissions permettant l'exécution du script avec la commande `sudo chmod +x /usr/local/bin/duckdns.sh`.
 
 Éditez ce fichier (avec nano) en changeant les variables `DUCKDNS_TOKEN` et `DUCKDNS_DOMAINS` par ceux que vous obtenez du site de Duck DNS. Ensuite, vous pouvez activer l'envoi automatique au démarrage en exécutant la commande `sudo systemctl enable updateIP.service`. Redémarrez votre Raspberry Pi Zero, et vous devriez pouvoir vous y connecter en utilisant une adresse de type VOTREDOMAINE.duckdns.org.
 
+</details>
 
 
 ## 5. Compilation et installation d'un noyau temps réel pour Linux
@@ -196,10 +246,10 @@ Le noyau Linux installé par défaut sur la carte MicroSD du Raspberry Pi n'est 
 
 Au fil du cours, nous aurons besoin des capacités temps réel du noyau Linux. Hélas, il n'est pas possible de le reconfigurer dynamiquement, il faut plutôt le compiler à nouveau avec des options différentes. C'est donc la première chose que nous allons faire avec l'environnement de compilation croisée.
 
-Pour ce faire, clonez d'abord les sources du noyau Linux (adapté au Raspberry Pi Zero) dans le dossier linux-build et sélectionnez un commit en particulier pour garantir que vous utilisez bien les mêmes fichiers source que ceux utilisés pour valider le laboratoire :
+Pour ce faire, clonez d'abord les sources du noyau Linux (adapté au Raspberry Pi Zero) dans un dossier nommé `linux-build` et sélectionnez un commit spécifique pour garantir que vous utilisez bien les mêmes fichiers source que ceux utilisés pour valider le laboratoire :
 ```
 $ cd $HOME
-$ git clone -b rpi-6.12.y --depth=1 https://github.com/raspberrypi/linux linux-build
+$ git clone -b rpi-6.12.y --shallow-since=2025-12-03 https://github.com/raspberrypi/linux linux-build
 $ cd linux-build
 $ git reset --hard a8c4c464b753ef2273ae23cb79de4f9f05ce4ec7
 ```
@@ -217,7 +267,7 @@ Dans le répertoire `$HOME`, vous trouverez un dossier nommé `GIF3004-VM-artefa
 $ cp $HOME/GIF3004-VM-artefacts-2026-x64/kernel_config $HOME/linux-build/kernel_config
 ```
 
-Puis éditez-le et recherchez la clé `CONFIG_LOCALVERSION`. Lorsque vous l'avez trouvée, modifiez sa valeur pour qu'elle contienne votre IDUL, dans le format suivant:
+Puis éditez-le et recherchez la clé `CONFIG_LOCALVERSION`. Lorsque vous l'avez trouvée, modifiez sa valeur **pour qu'elle contienne votre IDUL**, dans le format suivant:
 ```
 CONFIG_LOCALVERSION="-SETR-VOTREIDUL-H2026"
 ```
@@ -238,7 +288,7 @@ $ make -j4 ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- zImage modules dtbs
 
 > Note : remplacez le chiffre après le `j` dans la commande ci-dessus pour correspondre au nombre de processeurs que vous avez alloués à la machine virtuelle (par exemple `-j8`). Le temps de compilation avec 4 coeurs devrait être d'environ 8 minutes.
 
-> *Note importante :* si la compilation produit une erreur, réglez d'abord cette erreur avant de passer à la suite! La compilation devrait normalement se terminer par le message "Kernel: arch/arm/boot/zImage is ready".
+> *Note importante :* si la compilation produit une erreur, réglez d'abord cette erreur avant de passer à la suite! La compilation devrait normalement se terminer par le message `Kernel: arch/arm/boot/zImage is ready`.
 
 Il vous faut maintenant copier le noyau sur la carte MicroSD de votre Raspberry Pi Zero. Pour se faire, retirez la carte MicroSD de sa fente (une fois le Raspberry Pi Zero éteint correctement!) et utilisez un lecteur de carte SD/MicroSD pour la connecter à votre ordinateur. Ces lecteurs de carte sont des lecteurs USB et doivent être configurés pour être contrôlés _par votre machine virtuelle_.
 - Sur x86-64 (Intel ou AMD), allez dans le menu "Périphériques" en haut de la fenêtre de la machine virtuelle, développez la section "USB" et sélectionnez le périphérique correspondant à votre lecteur de cartes.
@@ -274,9 +324,9 @@ $ sudo umount ../carte_microsd/boot
 $ sudo umount ../carte_microsd/root
 ```
 
-> Certaines de ces étapes peuvent requérir jusqu'à 2 minutes, dépendemment de la vitesse de votre carte MicroSD et de celle de votre lecteur. Ne les interrompez pas.
+> Certaines de ces étapes peuvent requérir jusqu'à 2 minutes, dépendemment de la vitesse de votre carte MicroSD et de celle de votre lecteur USB. Ne les interrompez pas.
 
-Une fois ces opérations terminées, réinsérez la carte MicroSD dans la fente du Raspberry Pi Zero W et redémarrez le. Vous pouvez vérifier que la procédure a bien fonctionné en exécutant `uname -a` sur le Raspberry Pi Zero (qui devrait afficher votre IDUL, tel qu'écrit dans le fichier `.config`) et en validant que (toujours sur le Raspberry Pi Zero, par exemple via une connexion SSH) :
+Une fois ces opérations terminées, réinsérez la carte MicroSD dans la fente du Raspberry Pi Zero W et redémarrez le. Vérifiez que la procédure a bien fonctionné en exécutant `uname -a` sur le Raspberry Pi Zero (qui devrait afficher votre IDUL, tel qu'écrit dans le fichier `.config`) et en validant que (toujours sur le Raspberry Pi Zero, par exemple via une connexion SSH) :
 ```
 $ cat /sys/kernel/realtime 
 ```
@@ -316,12 +366,11 @@ Par la suite, quelques notifications apparaitront. Un menu s'ouvrira dans la por
 
 <img src="img/vsc_7.png" style="width:800px"/>
 
-
 Une fois cela fait, vous devriez obtenir une sortie de terminal indiquant que CMake a terminé sa configuration avec succès (*Build files have been written to: ...*):
 
 <img src="img/vsc_9.png" style="width:800px"/>
 
-> À ce stade, validez également la version du compilateur utilisé par CMake. Si votre environnement est correctement configuré, elle **doit** être *14.3.0*, comme dans la capture d'écran ci-dessus. Si ce n'est pas le cas, c'est que vous avez fait une erreur durant la création de votre environnement et que les projets risquent de ne pas fonctionner.
+> À ce stade, validez également la version du compilateur utilisé par CMake. Si votre environnement est correctement configuré, elle **doit** être *14.3.0*, comme dans la capture d'écran ci-dessus. Si ce n'est pas le cas, c'est que vous avez fait une erreur durant la création de votre environnement et que vous utilisez le _mauvais_ compilateur. Par conséquent, les projets risquent de ne pas fonctionner.
 
 <!--- #### Configuration des répertoires de recherche d'en-têtes
 
@@ -367,7 +416,7 @@ Une fois cela fait, vous pouvez synchroniser l'exécutable et lancer le débogag
 
 #### 6.3.1. Entrée et sortie standard
 
-**Note**: cette sous-section est optionnelle, mais elle contient des informations qui peuvent vous aider pour l'exécution et le débogage de vos programmes, non seulement pour ce premier laboratoire, mais aussi pour les suivants.
+> **Note**: cette sous-section est optionnelle, mais elle contient des informations qui peuvent vous aider pour l'exécution et le débogage de vos programmes, non seulement pour ce premier laboratoire, mais aussi pour les suivants.
 
 Lors du débogage, le programme s'exécute sur le Raspberry Pi et vous n'avez donc pas accès à STDIN ou STDOUT. Par défaut, STDOUT (c'est-à-dire la sortie standard du programme, celle qui est utilisée par exemple par `printf()` pour l'affichage) est _redirigé_ vers le fichier `/home/pi/capture_stdout`. Vous pouvez donc voir, _après l'exécution_ de votre programme, le texte qu'il a produit en lisant ce fichier. Il est également possible de faire en sorte de le voir en temps réel dans VScode, en lançant, dans un second terminal (utilisez l'icône "+", en bas à droite), la commande suivante :
 ```
@@ -434,10 +483,13 @@ Le questionnaire associé sur MonPortail doit également être complété pour *
 ## Annexe 1 : Installation manuelle
 
 Nous fournissons ici les étapes nécessaires pour créer manuellement :
-1. L'image Raspbian pour le Raspberry Pi Zero W;
+1. L'image Raspberry Pi OS pour le Raspberry Pi Zero W;
 2. La machine virtuelle contenant l'environnement de compilation croisée optimisé pour le Raspberry Pi Zero W (ou l'installation de l'environnement de compilation croisée sur une installation Linux existante)
 3. La configuration initiale du noyau pour sa compilation.
 
-> **NOTE IMPORTANTE** : cette section _NE FAIT PAS_ partie de ce qui est requis pour ce laboratoire. Elle n'est présentée qu'à titre informatif pour permettre à ceux qui voudraient utiliser leur propre environnement (une autre distribution Linux, par exemple) pour effectuer les laboratoires du cours. Nous ne fournirons _aucun_ support pour des installations personnalisées. Ne suivez ces instructions que si vous êtes certains de ce que vous faites : le contenu de ces instructions complémentaire ne sera **pas** évalué, que ce soit lors de ce laboratoire ou à l'examen.
+> **NOTE IMPORTANTE** : cette section _NE FAIT PAS_ partie de ce qui est requis pour ce laboratoire. Elle n'est présentée qu'à titre informatif pour permettre à ceux qui voudraient utiliser leur propre environnement (une autre distribution Linux, par exemple) pour effectuer les laboratoires du cours. Nous ne fournirons _aucun_ support pour des installations personnalisées. Ne suivez ces instructions que si vous êtes certains de ce que vous faites. Le contenu de ces instructions complémentaire ne fera **pas** partie d'une évaluation, que ce soit lors de ce laboratoire ou à l'examen.
 
-Commencez par créer l'image Raspbian en suivant [ces instructions](https://setr-ulaval.github.io/labo1-h26/rpicreationimage.html). Créez ensuite votre environnement de compilation croisée (dans une machine virtuelle ou pas) en suivant [les étapes décrites ici.](https://setr-ulaval.github.io/labo1-h26/preparationvm.html) Finalement, préparez votre configuration du noyau Linux pour le Raspberry Pi Zero W en suivant [les instructions détaillées ici.](https://setr-ulaval.github.io/labo1-h26/preparationkernelcompilation.html).
+<details>
+<summary>J'ai lu le paragraphe précédent et comprends que je n'obtiendrai pas de support en cas de problème avec une installation personnalisée</summary>
+Commencez par créer l'image Raspberry Pi OS en suivant [ces instructions](https://setr-ulaval.github.io/labo1-h26/rpicreationimage.html). Créez ensuite votre environnement de compilation croisée (dans une machine virtuelle ou pas) en suivant [les étapes décrites ici.](https://setr-ulaval.github.io/labo1-h26/preparationvm.html) Finalement, préparez votre configuration du noyau Linux pour le Raspberry Pi Zero W en suivant [les instructions détaillées ici.](https://setr-ulaval.github.io/labo1-h26/preparationkernelcompilation.html).
+</details>
