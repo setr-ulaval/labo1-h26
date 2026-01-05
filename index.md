@@ -34,7 +34,7 @@ Les énoncés de laboratoire sont conçus pour donner un niveau de détails suff
 La partie 1 est toujours affichée. Afin d'alléger l'énoncé, la partie 2 est, quant à elle, souvent cachée sous un bloc _Plus de détails_, semblable à celui-ci :
 
 <details>
-<summary>Plus de détails</summary>
+<summary><span style="color:red;font-weight:bold">Plus de détails</span></summary>
 Ceci décrit des détails supplémentaires sur la manière suggérée de réaliser l'action demandée.
 </details>
 
