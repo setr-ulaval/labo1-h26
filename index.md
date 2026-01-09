@@ -173,7 +173,7 @@ Validez que vous êtes capables de vous connecter à votre machine virtuelle par
 
 
 <details>
-<summary><summary><span style="color:#000099;font-weight:bold">Plus de détails sur l'établissement d'une connexion SSH</span></summary>
+<summary><span style="color:#000099;font-weight:bold">Plus de détails sur l'établissement d'une connexion SSH</span></summary>
 
 Commencez par ouvrir un terminal sur votre machine virtuelle (troisième icône du menu de gauche) et tentez de vous connecter à votre Raspberry Pi Zero :
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
@@ -196,7 +196,7 @@ Remplacez évidemment `adresse_ip_de_votre_raspberry_pi` par l'adresse IP que vo
 Par la suite, vous devez mettre en place une _authentification par clé publique_, pour vous éviter de devoir réécrire le même mot de passe à chaque connexion.
 
 <details>
-<summary><summary><span style="color:#000099;font-weight:bold">Plus de détails sur la configuration d'une authentification sans mot de passe</span></summary>
+<summary><span style="color:#000099;font-weight:bold">Plus de détails sur la configuration d'une authentification sans mot de passe</span></summary>
 Ces commandes sont à effectuer sur votre machine virtuelle :
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 $ ssh-keygen -t rsa -b 4096 -C "ecrivez_votre_nom_ici"
@@ -217,7 +217,7 @@ Nous recommandons finalement l'installation et l'utilisation d'un résolveur DNS
 
 
 <details>
-<summary><summary><span style="color:#000099;font-weight:bold">Plus de détails sur l'utilisation d'un résolveur DNS</span></summary>
+<summary><span style="color:#000099;font-weight:bold">Plus de détails sur l'utilisation d'un résolveur DNS</span></summary>
 Pour ce faire connectez-vous à [Duck DNS](https://www.duckdns.org). Créez un nom pour votre Raspberry Pi Zero. 
 
 Il faut ensuite configurer le Raspberry Pi Zero pour mettre à jour son adresse IP à chaque démarrage. Pour ce faire, nous avons déjà placé un [script shell](https://setr-ulaval.github.io/labo1-h26/etc/duckdns.sh) dans `/usr/local/bin/duckdns.sh` sur l'image de votre Raspberry Pi Zero, dont le contenu est le suivant :
