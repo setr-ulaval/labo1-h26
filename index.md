@@ -4,9 +4,9 @@ title: "Laboratoire 1 : Configuration du Raspberry Pi Zero W et compilation d'un
 
 <style type="text/css">
 details {
-  border: 2px solid #000099;
+  border: 1px solid #000099;
   padding: 0 1rem;
-  background: #A0A0F0;
+  background: #D9D9FF;
 }
 details + details {
   border-top: none;
@@ -15,8 +15,7 @@ details[open] {
     padding-bottom: 1em;
 }  
 summary {
-  padding: 1rem 2em 1rem 0;
-  font-size: 1.25rem;
+  padding: 0.5rem 2em 0.5rem 0;
   font-weight: bold;
   cursor: pointer;
 }
@@ -98,7 +97,7 @@ Si vous êtes sur le campus, nous vous suggérons d'utiliser Eduroam2 (le résea
 
 <details>
 <summary>Plus de détails sur l'édition en ligne de commande</summary>
-Si vous n'êtes pas familier avec les éditeurs de texte en console, nous vous suggérons d'utiliser `nano` (par exemple, dans ce cas-ci, `sudo nano /etc/NetworkManager/system-connections/eduroam2.nmconnection`). Une fois vos modifications effectuées, utilisez Ctrl+X pour quitter, puis Y (pour enregistrer vos modifications) et Enter (pour conserver le même nom de fichier). Si vous êtes familier avec d'autres éditeurs, vous êtes évidemment libre de les utiliser.
+Si vous n'êtes pas familier avec les éditeurs de texte en console, nous vous suggérons d'utiliser <code class="language-plaintext highlighter-rouge">nano</code> (par exemple, dans ce cas-ci, <code class="language-plaintext highlighter-rouge">sudo nano /etc/NetworkManager/system-connections/eduroam2.nmconnection</code>). Une fois vos modifications effectuées, utilisez Ctrl+X pour quitter, puis Y (pour enregistrer vos modifications) et Enter (pour conserver le même nom de fichier). Si vous êtes familier avec d'autres éditeurs, vous êtes évidemment libre de les utiliser.
 </details>
 
 #### 2.2.2. Votre propre réseau
@@ -141,23 +140,23 @@ Commencez par décompresser le fichier `SETR-H26-VM-x64.zip` téléchargé, il d
 
 <details>
 <summary><span style="color:#000099;font-weight:bold">Plus de détails sur l'installation de la machine virtuelle VirtualBox</span></summary>
-Pour importer la machine virtuelle dans VirtualBox, cliquez sur *Nouvelle*.<br>
+Pour importer la machine virtuelle dans VirtualBox, cliquez sur <em>Nouvelle</em>.<br>
 
 <img src="img/vbox_1.png" style="width:510px"/><br>
 
-Vous pouvez choisir le nom de la machine virtuelle, pour *Type* sélectionnez <em>Linux</em> et *Ubuntu (64bit)* pour *Version*. <br>
+Vous pouvez choisir le nom de la machine virtuelle, pour <em>Type</em> sélectionnez <em>Linux</em> et <em>Ubuntu (64bit)</em> pour <em>Version</em>. <br>
 
 <img src="img/vbox_2.png" style="width:800px"/><br>
 
-Dans la section _Hardware_, choisissez la mémoire et le nombre de CPU que vous allez allouer à la machine virtuelle (vous pourrez toujours ajuster plus tard au besoin). Nous vous recommandons au _minimum_ 4 processeurs et 4096 MB de RAM.<br>
+Dans la section <em>Hardware</em>, choisissez la mémoire et le nombre de CPU que vous allez allouer à la machine virtuelle (vous pourrez toujours ajuster plus tard au besoin). Nous vous recommandons au <em>minimum</em> 4 processeurs et 4096 MB de RAM.<br>
 
 <img src="img/vbox_2b.png" style="width:800px"/><br>
 
-Dans la section _Hard Disk_, sélectionnez *Utiliser un fichier de disque dur virtuel existant* et choisissez le fichier .vdi (provenant de l'archive décompressée) en cliquant qur l'icône en forme de dossier. Cliquez sur "Terminer" pour compléter la configuration.<br>
+Dans la section <em>Hard Disk</em>, sélectionnez <code class="language-plaintext highlighter-rouge">Utiliser un fichier de disque dur virtuel existant</code> et choisissez le fichier .vdi (provenant de l'archive décompressée) en cliquant qur l'icône en forme de dossier. Cliquez sur "Terminer" pour compléter la configuration.<br>
 
 <img src="img/vbox_3.png" style="width:800px"/><br>
 
-_Avant_ de démarrer la machine virtuelle, configurez sa mémoire vidéo en faisant *Clic-droit/Configuration...*. Dans l'onglet "Affichage", ajustez la mémoire vidéo à *128 MB* et assurez vous que *Activer l'accélération 3D* soit _désactivé_. La configuration de base est alors normalement terminée, vous pouvez valider et lancer la VM.<br>
+<em>Avant</em> de démarrer la machine virtuelle, configurez sa mémoire vidéo en faisant <em>Clic-droit/Configuration...</em>. Dans l'onglet "Affichage", ajustez la mémoire vidéo à <em>128 MB</em> et assurez vous que <code class="language-plaintext highlighter-rouge">Activer l'accélération 3D</code> soit <em>désactivé</em>. La configuration de base est alors normalement terminée, vous pouvez valider et lancer la VM.<br>
 
 <img src="img/vbox_4.png" style="width:800px"/>
 
@@ -172,15 +171,15 @@ Commencez par décompresser le fichier SETR-H26-VM-ARM64.utm.zip téléchargé, 
 
 <details>
 <summary><span style="color:#000099;font-weight:bold">Plus de détails sur l'installation de la machine virtuelle UTM</span></summary>
-Installez d'abord UTM en suivant [ce lien](https://mac.getutm.app/). Ensuite, ouvrez l'application et sélectionnez `Create a New Virtual Machine` :<br>
+Installez d'abord UTM en suivant [ce lien](https://mac.getutm.app/). Ensuite, ouvrez l'application et sélectionnez <code class="language-plaintext highlighter-rouge">Create a New Virtual Machine</code> :<br>
 
 <img src="img/utm_1.png" style="width:510px"/><br>
 
-Dans la fenêtre qui s'affiche, cliquez sur l'option `Open` (dans le bas) :<br>
+Dans la fenêtre qui s'affiche, cliquez sur l'option <code class="language-plaintext highlighter-rouge">Open</code> (dans le bas) :<br>
 
 <img src="img/utm_2.png" style="width:510px"/><br>
 
-Vous pouvez par la suite modifier la quantité de RAM et le nombre de coeurs CPU alloués à la machine virtuelle, mais nous vous conseillons fortement de conserver au _minimum_ 4096 MB de RAM et 4 coeurs. La machine peut par la suite être lancée en cliquant sur le bouton "Play" dans le menu de gauche.
+Vous pouvez par la suite modifier la quantité de RAM et le nombre de coeurs CPU alloués à la machine virtuelle, mais nous vous conseillons fortement de conserver au <em>minimum</em> 4096 MB de RAM et 4 coeurs. La machine peut par la suite être lancée en cliquant sur le bouton "Play" dans le menu de gauche.
 </details>
 
 ## 4. Configuration de la connexion à distance
@@ -200,16 +199,19 @@ Commencez par ouvrir un terminal sur votre machine virtuelle (troisième icône 
 $ ssh pi@adresse_ip_de_votre_raspberry_pi
 </code></pre></div></div>
 
-> Note : dans les énoncés, nous suivons la convention de faire précéder une commande à exécuter dans le terminal par un signe de dollar ($). Ce signe ne doit _pas_ être copié dans le terminal. Par exemple, dans ce cas-ci, il faut copier seulement `ssh pi@adresse_ip_de_votre_raspberry_pi`.
+> Note : dans les énoncés, nous suivons la convention de faire précéder une commande à exécuter dans le terminal par un signe de dollar ($). Ce signe ne doit _pas_ être copié dans le terminal. Par exemple, dans ce cas-ci, il faut copier seulement <code class="language-plaintext highlighter-rouge">ssh pi@adresse_ip_de_votre_raspberry_pi</code>.
 
-Remplacez évidemment `adresse_ip_de_votre_raspberry_pi` par l'adresse IP que vous avez obtenue à l'étape 2.2.3 avant d'exécuter cette commande. Le terminal va d'abord vous avertir que "l'authenticité de cet hôte ne peut être établie" (c'est parce que vous vous connectez pour la première fois). Acceptez l'avertissement en écrivant `yes` dans le terminal. Par la suite, après quelques secondes, le terminal devrait vous demander le mot de passe de votre Raspberry Pi Zero (celui que vous avez choisi à l'étape 2.1.1). Une fois ce mot de passe écrit, pressez "Enter" et une connexion devrait s'établir, montrant l'invite de commande `pi@rpisetr` pour indiquer que vous avez maintenant une console ouverte sur le Raspberry Pi et non votre machine virtuelle.<br>
+Remplacez évidemment <code class="language-plaintext highlighter-rouge">adresse_ip_de_votre_raspberry_pi</code> par l'adresse IP que vous avez obtenue à l'étape 2.2.3 avant d'exécuter cette commande. Le terminal va d'abord vous avertir que "l'authenticité de cet hôte ne peut être établie" (c'est parce que vous vous connectez pour la première fois). Acceptez l'avertissement en écrivant <code class="language-plaintext highlighter-rouge">yes</code> dans le terminal. Par la suite, après quelques secondes, le terminal devrait vous demander le mot de passe de votre Raspberry Pi Zero (celui que vous avez choisi à l'étape 2.1.1). Une fois ce mot de passe écrit, pressez "Enter" et une connexion devrait s'établir, montrant l'invite de commande <code class="language-plaintext highlighter-rouge">pi@rpisetr</code> pour indiquer que vous avez maintenant une console ouverte sur le Raspberry Pi et non votre machine virtuelle.<br>
 
 <img src="img/ssh1st.png" style="width:510px"/><br>
 
-> *Note* : il est normal qu'aucun caractère ne s'affiche dans le terminal lorsque vous écrivez le mot de passe.
+<blockquote>
+  <p>*Note* : il est normal qu'aucun caractère ne s'affiche dans le terminal lorsque vous écrivez le mot de passe.
+  </p>
+  </blockquote>
 </details>
 
-> **Note importante** : votre ordinateur et le Raspberry Pi Zero doivent être connectés sur le *même* réseau sans-fil pour que la connexion puisse s'établir. Par exemple, si votre Raspberry Pi est connecté à `eduroam2`, mais que votre ordinateur (exécutant la machine virtuelle) est connecté à `UL_Visiteur_Guest`, la connexion ne fonctionnera **pas**!
+> **Note importante** : votre ordinateur et le Raspberry Pi Zero doivent être connectés sur le *même* réseau sans-fil pour que la connexion puisse s'établir. Par exemple, si votre Raspberry Pi est connecté à <code class="language-plaintext highlighter-rouge">eduroam2</code>, mais que votre ordinateur (exécutant la machine virtuelle) est connecté à <code class="language-plaintext highlighter-rouge">UL_Visiteur_Guest</code>, la connexion ne fonctionnera **pas**!
 
 #### 4.1.2 Configuration d'une authentification sans mot de passe
 
@@ -238,9 +240,9 @@ Nous recommandons finalement l'installation et l'utilisation d'un résolveur DNS
 
 <details>
 <summary><span style="color:#000099;font-weight:bold">Plus de détails sur l'utilisation d'un résolveur DNS</span></summary>
-Pour ce faire connectez-vous à [Duck DNS](https://www.duckdns.org). Créez un nom pour votre Raspberry Pi Zero. 
+Pour ce faire connectez-vous à <a href="https://www.duckdns.org">Duck DNS</a>. Créez un nom pour votre Raspberry Pi Zero. 
 
-Il faut ensuite configurer le Raspberry Pi Zero pour mettre à jour son adresse IP à chaque démarrage. Pour ce faire, nous avons déjà placé un [script shell](https://setr-ulaval.github.io/labo1-h26/etc/duckdns.sh) dans `/usr/local/bin/duckdns.sh` sur l'image de votre Raspberry Pi Zero, dont le contenu est le suivant :
+Il faut ensuite configurer le Raspberry Pi Zero pour mettre à jour son adresse IP à chaque démarrage. Pour ce faire, nous avons déjà placé un <a href="https://setr-ulaval.github.io/labo1-h26/etc/duckdns.sh">script shell</a> dans <code class="language-plaintext highlighter-rouge">/usr/local/bin/duckdns.sh</a> sur l'image de votre Raspberry Pi Zero, dont le contenu est le suivant :
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 #!/bin/bash
@@ -251,9 +253,9 @@ DUCKDNS_LOGFILE=/var/log/duckdns.log
 echo url="https://www.duckdns.org/update?domains=$DUCKDNS_DOMAINS&token=$DUCKDNS_TOKEN&ip=$DUCKDNS_LOCALIP" | curl -k -o $DUCKDNS_LOGFILE -K -
 </code></pre></div></div>
 
-Changez les permissions permettant l'exécution du script avec la commande `sudo chmod +x /usr/local/bin/duckdns.sh`.
+Changez les permissions permettant l'exécution du script avec la commande <code class="language-plaintext highlighter-rouge">sudo chmod +x /usr/local/bin/duckdns.sh</code>.
 
-Éditez ce fichier (avec nano) en changeant les variables `DUCKDNS_TOKEN` et `DUCKDNS_DOMAINS` par ceux que vous obtenez du site de Duck DNS. Ensuite, vous pouvez activer l'envoi automatique au démarrage en exécutant la commande `sudo systemctl enable updateIP.service`. Redémarrez votre Raspberry Pi Zero, et vous devriez pouvoir vous y connecter en utilisant une adresse de type VOTREDOMAINE.duckdns.org.
+Éditez ce fichier (avec nano) en changeant les variables <code class="language-plaintext highlighter-rouge">DUCKDNS_TOKEN</code> et <code class="language-plaintext highlighter-rouge">DUCKDNS_DOMAINS</code> par ceux que vous obtenez du site de Duck DNS. Ensuite, vous pouvez activer l'envoi automatique au démarrage en exécutant la commande <code class="language-plaintext highlighter-rouge">sudo systemctl enable updateIP.service</code>. Redémarrez votre Raspberry Pi Zero, et vous devriez pouvoir vous y connecter en utilisant une adresse de type VOTREDOMAINE.duckdns.org.
 
 </details>
 
@@ -287,17 +289,17 @@ Dans le répertoire `$HOME`, vous trouverez un dossier nommé `GIF3004-VM-artefa
 $ cp $HOME/GIF3004-VM-artefacts-2026-x64/kernel_config $HOME/linux-build/kernel_config
 ```
 
-Puis éditez-le et recherchez la clé `CONFIG_LOCALVERSION`. Lorsque vous l'avez trouvée, modifiez sa valeur **pour qu'elle contienne votre IDUL**, dans le format suivant:
+Puis éditez le fichier copié dans `linux-build` et recherchez la clé `CONFIG_LOCALVERSION`. Lorsque vous l'avez trouvée, modifiez sa valeur **pour qu'elle contienne votre IDUL**, dans le format suivant:
 ```
 CONFIG_LOCALVERSION="-SETR-VOTREIDUL-H2026"
 ```
-
-> Cette valeur apparaîtra après le nom du noyau, dans la sortie de la commande `uname -a`.
 
 Finalement, changez le nom du fichier pour `.config` :
 ```
 $ mv $HOME/linux-build/kernel_config $HOME/linux-build/.config
 ```
+
+> Note : les fichiers commençant par un . sont cachés par défaut sous Linux. Il est normal que le fichier "disparaisse" après la manipulation précédente, mais vous pouvez toujours l'éditer si nécessaire (par exemple dans un terminal, en utilisant `nano .config`).
 
 Puis lancez la compilation en utilisant les commandes suivantes :
 ```
@@ -310,13 +312,27 @@ $ make -j4 ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- zImage modules dtbs
 
 > *Note importante :* si la compilation produit une erreur, réglez d'abord cette erreur avant de passer à la suite! La compilation devrait normalement se terminer par le message `Kernel: arch/arm/boot/zImage is ready`.
 
-Il vous faut maintenant copier le noyau sur la carte MicroSD de votre Raspberry Pi Zero. Pour se faire, retirez la carte MicroSD de sa fente (une fois le Raspberry Pi Zero éteint correctement!) et utilisez un lecteur de carte SD/MicroSD pour la connecter à votre ordinateur. Ces lecteurs de carte sont des lecteurs USB et doivent être configurés pour être contrôlés _par votre machine virtuelle_.
+Il vous faut maintenant copier le noyau sur la carte MicroSD de votre Raspberry Pi Zero. Pour ce faire, retirez la carte MicroSD de sa fente (une fois le Raspberry Pi Zero éteint correctement!) et utilisez un lecteur de carte SD/MicroSD pour la connecter à votre ordinateur. 
+
+
+<details>
+<summary><span style="color:#000099;font-weight:bold">Plus de détails sur le montage de la carte MicroSD dans la machine virtuelle</span></summary>
+
+Ces lecteurs de carte sont des lecteurs USB et doivent être configurés pour être contrôlés _par votre machine virtuelle_.
 - Sur x86-64 (Intel ou AMD), allez dans le menu "Périphériques" en haut de la fenêtre de la machine virtuelle, développez la section "USB" et sélectionnez le périphérique correspondant à votre lecteur de cartes.
-- Sur ARM64 (Mac), cliquez sur la 4e icône à partir de la _droite_ (celle qui ressemble à un connecteur USB) et sélectionnez le périphérique correspondant à votre lecteur de cartes.
+- Sur ARM64 (Mac), cliquez sur la 4e icône à partir de la _droite_ (celle qui ressemble à un connecteur USB) et sélectionnez le périphérique correspondant à votre lecteur de cartes.<br>
 
-> Note : la machine virtuelle ne peut pas prendre le contrôle du périphérique USB si celui-ci est déjà en cours d'utilisation ("monté") par le système principal exécutant la machine virtuelle. Assurez-vous que vous n'essayez _pas_ d'ouvrir les partitions présentes sur la carte microSD depuis le système principal.
+<img src="img/vbox_5.png" style="width:400px;margin-right:50px"/><img src="img/utm_3.png" style="width:300px"/><br>
 
-Cette manipulation devrait faire apparaître les partitions de la carte SD dans votre machine virtuelle. Dans votre dossier personnel, créez le dossier `carte_microsd` (qui sera le _point de montage_ des partitions présentes sur cette carte) en exécutant les commandes :
+<blockquote>
+  <p>Note : la machine virtuelle ne peut pas prendre le contrôle du périphérique USB si celui-ci est déjà en cours d'utilisation ("monté") par le système principal exécutant la machine virtuelle. Assurez-vous que vous n'essayez _pas_ d'ouvrir les partitions présentes sur la carte microSD depuis le système principal.
+  </p>
+</blockquote>
+
+Cette manipulation devrait faire apparaître les partitions de la carte SD dans votre machine virtuelle. Ne les ouvrez <em>pas</em> pour le moment.
+</details>
+
+Dans votre dossier personnel, créez le dossier `carte_microsd` (qui sera le _point de montage_ des partitions présentes sur cette carte) en exécutant les commandes :
 ```
 $ cd $HOME
 $ mkdir -p carte_microsd
@@ -357,7 +373,7 @@ ne retourne pas d'erreur de fichier inexistant et contient bien le chiffre `1`.
 
 Nous allons maintenant configurer un nouveau projet pour ce laboratoire.
 
-> La première fois que vous ouvrirez VSC, il vous demandera de créer un "nouveau trousseau de clés". Cela n'est pas obligatoire pour le cours, mais vous pouvez le faire si vous en voyez le besoin.
+> La première fois que vous ouvrirez VSCode, il vous demandera de créer un "nouveau trousseau de clés". Cela n'est pas obligatoire pour le cours, mais vous pouvez le faire si vous en voyez le besoin.
 
 ### 6.1. Création d'un nouveau projet
 
@@ -374,7 +390,7 @@ Rendez également le script `src/syncAndStartGDB.sh` exécutable :
 $ chmod +x src/syncAndStartGDB.sh
 ```
 
-Par la suite, dans VSC, allez dans `Fichier > Ouvrir un dossier` et sélectionnez _labo1-h26/src_. Vous devriez alors pouvoir accéder, via le menu de gauche, aux fichiers `tp1.c` et `CMakeLists.txt`.
+Par la suite, dans VSCode, allez dans `Fichier > Ouvrir un dossier` et sélectionnez _labo1-h26/src_. Vous devriez alors pouvoir accéder, via le menu de gauche, aux fichiers `tp1.c` et `CMakeLists.txt`.
 
 > **Important** : ouvrez bien le dossier _src_ et non la racine (labo1-h26), sinon les scripts de configuration ne fonctionneront pas!
 
@@ -403,9 +419,9 @@ VSC (et son extension C/C++) fournit plusieurs utilitaires pour faciliter la pro
 
 Il est maintenant temps de tester votre chaîne de compilation croisée. Pour faciliter certains réglages, nous vous conseillons d'abord d'activer l'affichage systématique de la barre de status CMake. Pour ce faire, allez dans le menu `Afficher`, puis `Palette de commandes`.
 
-> Cette palette de commandes est la manière privilégiée d'interagir avec les outils de VSC. Dans la suite des énoncés, nous l'appelerons simplement "Palette". Vous gagnerez probablement du temps à mémoriser le raccourci clavier permettant de l'ouvrir (Ctrl-Shift-P dans la VM, par exemple)!
+> Cette palette de commandes est la manière privilégiée d'interagir avec les outils de VSCode. Dans la suite des énoncés, nous l'appelerons simplement "Palette". Vous gagnerez probablement du temps à mémoriser le raccourci clavier permettant de l'ouvrir (Ctrl-Shift-P dans la VM, par exemple)!
 
-Dans la ligne d'édition qui apparaît en haut de l'écran, écrivez `CMake settings` (remarquez comment VSC modifie ses suggestions au fur et à mesure), puis sélectionnez `Open CMake Tools Extension Settings`. 
+Dans la ligne d'édition qui apparaît en haut de l'écran, écrivez `CMake settings` (remarquez comment VSCode modifie ses suggestions au fur et à mesure), puis sélectionnez `Open CMake Tools Extension Settings`. 
 
 
 <img src="img/vsc_cmake_settings.png" style="width:800px"/>
@@ -415,26 +431,26 @@ Dans le nouvel onglet affiché, recherchez le réglage `Status Bar Visibility` e
 
 <img src="img/vsc_8.png" style="width:800px"/>
 
-Dans la ligne d'édition qui apparaît en haut de l'écran, écrivez `CMake` (remarquez comment VSC modifie ses suggestions au fur et à mesure), puis sélectionnez `CMake Build`. 
+Dans la ligne d'édition qui apparaît en haut de l'écran, écrivez `CMake` (remarquez comment VSCode modifie ses suggestions au fur et à mesure), puis sélectionnez `CMake Build`. 
 
-> Il se peut que VSC vous demande alors de choisir entre `Debug`, `Release`, `MinSizeRel` et `RelWithDebInfo`. Pour le moment, sélectionnez `Debug`, mais sachez que `Release` pourra être fort utile lorsque vous aurez besoin du maximum de performance possible. Notez que vous pouvez également utiliser la touche F7 comme raccourci. Si la configuration par défaut est déjà à `Debug`, comme vous pouvez le voir dans la barre de statut en bas à gauche (et qu'il ne vous pose donc pas la question), vous n'avez pas à faire de manipulation supplémentaire.
+> Il se peut que VSCode vous demande alors de choisir entre `Debug`, `Release`, `MinSizeRel` et `RelWithDebInfo`. Pour le moment, sélectionnez `Debug`, mais sachez que `Release` pourra être fort utile lorsque vous aurez besoin du maximum de performance possible. Notez que vous pouvez également utiliser la touche F7 comme raccourci. Si la configuration par défaut est déjà à `Debug`, comme vous pouvez le voir dans la barre de statut en bas à gauche (et qu'il ne vous pose donc pas la question), vous n'avez pas à faire de manipulation supplémentaire.
 
 Si la compilation se termine avec succès, vous devriez observer une sortie similaire à celle-ci :
 
 <img src="img/vsc_10.png" style="width:800px"/>
 
-Notez le *Build finished with exit code 0*, tout en bas, indiquant que la compilation s'est déroulée avec succès. Vous noterez que le compilateur produit plusieurs avertissements (*warnings*), qui ne sont pas des erreurs l'empêchant de compiler le programme, mais qui vous indique qu'il y a possiblement quelque chose qui cloche avec le code...
+Si les messages dans le terminal ne se terminent pas par *Build finished with exit code 0*, c'est que la compilation a échouée. Réglez alors les problèmes rencontrés. Toutefois, même en cas de succès, vous noterez que le compilateur produit plusieurs avertissements (*warnings*), qui ne sont pas des erreurs l'empêchant de compiler le programme, mais qui vous indiquent qu'il y a possiblement quelque chose qui cloche avec le code...
 
 
 ### 6.3. Exécution et débogage
 
-Si la compilation se termine avec succès, vous pouvez maintenant passer à l'étape de l'exécution du programme. Ici, nous cherchons à exécuter le programme sur le Raspberry Pi, mais en vous permettant de voir sa sortie et de le contrôler depuis votre ordinateur. Nous vous fournissons des scripts permettant de configurer VSC à cet effet. Vous devez cependant préalablement configurer un paramètre important. Dans le fichier `.vscode/tasks.json`, remplacez `adresse_de_votre_raspberry_pi` par l'adresse (IP ou DNS) effective de votre Raspberry Pi. Faites de même dans le fichier `.vscode/launch.json`, en conservant toutefois le `:4567` qui suit l'adresse du Raspberry Pi.
+Si la compilation se termine avec succès, vous pouvez maintenant passer à l'étape de l'exécution du programme. Ici, nous cherchons à exécuter le programme sur le Raspberry Pi, mais en vous permettant de voir sa sortie et de le contrôler depuis votre ordinateur. Nous vous fournissons des scripts permettant de configurer VSCode à cet effet. Vous devez cependant préalablement configurer un paramètre important. Dans le fichier `.vscode/tasks.json`, remplacez `adresse_de_votre_raspberry_pi` par l'adresse (IP ou DNS) effective de votre Raspberry Pi. Faites de même dans le fichier `.vscode/launch.json`, en conservant toutefois le `:4567` qui suit l'adresse du Raspberry Pi.
 
 Une fois cela fait, vous pouvez synchroniser l'exécutable et lancer le débogage en allant dans le menu _Déboguer_ puis _Lancer le débogage_ (la touche F5 est un raccourci plus rapide ayant le même effet). Après quelques secondes (le script utilise rsync pour synchroniser les fichiers vers le Raspberry Pi), l'interface de débogage devrait s'afficher et vous permettre de déboguer le programme à distance.
 
 > Il est d'usage de mettre un point d'arrêt (_breakpoint_) au début de la fonction `main()`. Cela permet de s'assurer que le débogueur est bien lancé avant de commencer l'exécution du programme. Pour ajouter un point d'arrêt dans VScode, cliquez simplement à gauche d'un numéro de ligne; un petit cercle rouge devrait alors apparaître, indiquant la présence d'un point d'arrêt. Vous n'êtes évidemment pas limités à un seul point d'arrêt par programme!
 
-#### 6.3.1. Entrée et sortie standard
+#### 6.3.1. Sortie standard et sortie d'erreur
 
 > **Note**: cette sous-section est optionnelle, mais elle contient des informations qui peuvent vous aider pour l'exécution et le débogage de vos programmes, non seulement pour ce premier laboratoire, mais aussi pour les suivants.
 
@@ -445,6 +461,7 @@ ssh pi@adresse_ip_ou_nom_dhote_de_votre_raspberry_pi tail -f -s 0.5 /home/pi/cap
 
 Cette commande va suivre les mises à jour du fichier `/home/pi/capture-stdout` à toutes les 0,5 seconde. Elle ne s'arrêtera toutefois pas automatiquement lorsque le débogage sera terminé, utilisez Ctrl-C pour le faire manuellement. La sortie _d'erreur_ standard (STDERR) est elle aussi capturée, mais dans le fichier `/home/pi/capture-stderr` cette fois.
 
+<!--
 En ce qui concerne STDIN (les entrées _reçues_ par le programme, à partir du clavier), vous pouvez simuler ces entrées en les mettant dans un fichier (par exemple `/home/pi/entree_programme`) et en modifiant le fichier `src/syncAndStartGDB.sh` pour remplacer `/dev/null` à la toute fin de la ligne par votre fichier. Par exemple :
 ```
 # Le contenu orignal
@@ -455,13 +472,14 @@ ssh pi@$2 "rm -f /home/pi/capture-stdout; rm -f /home/pi/capture-stderr; nohup g
 ```
 
 De cette manière, Linux va faire "comme si" vous aviez tapé au clavier le texte écrit dans le fichier `/home/pi/entree_programme` (en tenant compte des retours à la ligne comme des "Enter").
+-->
 
 Finalement, une fois le développement du programme et de la chaîne de compilation croisée terminés, notez que vous pouvez exécuter le programme directement sur le Raspberry Pi, via SSH. Assurez-vous d'y copier préalablement la bonne version de votre programme `SETR_TP1`. Dans ce mode, vous n'aurez toutefois pas accès à un débogueur.
 
 
 ### 6.4. Correction des bogues
 
-À ce stade, vous devriez être en mesure de lancer une session de débogage à distance sur le Raspberry Pi. Il est maintenant temps d'utiliser tout cela à bon escient! Le fichier qui vous est fourni **contient trois erreurs distinctes** en plus de générer plusieurs avertissements de la part du compilateur. Ces erreurs ne sont pas des erreurs de compilation, mais des erreurs de logique, qui empêchent le programme d'avoir le bon comportement -- et qui, comme vous le constaterez, le font planter. Vous devez les identifier et les corriger en utilisant le débogueur de VSC. Vous devez également pouvoir expliquer leur cause, de même que les corrections à apporter pour que le programme fonctionne correctement. 
+À ce stade, vous devriez être en mesure de lancer une session de débogage à distance sur le Raspberry Pi. Il est maintenant temps d'utiliser tout cela à bon escient! Le fichier qui vous est fourni **contient trois erreurs distinctes** en plus de générer plusieurs avertissements de la part du compilateur. Ces erreurs ne sont pas des erreurs de compilation, mais des erreurs de logique, qui empêchent le programme d'avoir le bon comportement -- et qui, comme vous le constaterez, le font planter. Vous devez les identifier et les corriger en utilisant le débogueur de VSCode. Vous devez également pouvoir expliquer leur cause, de même que les corrections à apporter pour que le programme fonctionne correctement. 
 
 > **Note importante** : le fait que le programme s'exécute sans planter est un bon début, mais ne signifie pas que le programme fonctionne **correctement**. Vérifiez la sortie du programme (voir section 6.3.1) pour vous assurez que le tri est effectué correctement!
 
@@ -507,9 +525,9 @@ Nous fournissons ici les étapes nécessaires pour créer manuellement :
 2. La machine virtuelle contenant l'environnement de compilation croisée optimisé pour le Raspberry Pi Zero W (ou l'installation de l'environnement de compilation croisée sur une installation Linux existante)
 3. La configuration initiale du noyau pour sa compilation.
 
-> **NOTE IMPORTANTE** : cette section _NE FAIT PAS_ partie de ce qui est requis pour ce laboratoire. Elle n'est présentée qu'à titre informatif pour permettre à ceux qui voudraient utiliser leur propre environnement (une autre distribution Linux, par exemple) pour effectuer les laboratoires du cours. Nous ne fournirons _aucun_ support pour des installations personnalisées. Ne suivez ces instructions que si vous êtes certains de ce que vous faites. Le contenu de ces instructions complémentaire ne fera **pas** partie d'une évaluation, que ce soit lors de ce laboratoire ou à l'examen.
+> **NOTE IMPORTANTE** : cette section _NE FAIT PAS_ partie de ce qui est requis pour ce laboratoire. Elle n'est présentée qu'à titre informatif pour permettre à ceux qui voudraient utiliser leur propre environnement (une autre distribution Linux, par exemple) pour effectuer les laboratoires du cours. Nous ne fournirons _aucun_ support pour des installations personnalisées. Ne suivez ces instructions que si vous êtes certains de ce que vous faites. Le contenu de ces instructions complémentaires ne fera **pas** partie d'une évaluation, que ce soit lors de ce laboratoire ou à l'examen.
 
 <details>
 <summary>J'ai lu le paragraphe précédent et comprends que je n'obtiendrai pas de support en cas de problème avec une installation personnalisée</summary>
-Commencez par créer l'image Raspberry Pi OS en suivant [ces instructions](https://setr-ulaval.github.io/labo1-h26/rpicreationimage.html). Créez ensuite votre environnement de compilation croisée (dans une machine virtuelle ou pas) en suivant [les étapes décrites ici.](https://setr-ulaval.github.io/labo1-h26/preparationvm.html) Finalement, préparez votre configuration du noyau Linux pour le Raspberry Pi Zero W en suivant [les instructions détaillées ici.](https://setr-ulaval.github.io/labo1-h26/preparationkernelcompilation.html).
+Commencez par créer l'image Raspberry Pi OS en suivant <a href="https://setr-ulaval.github.io/labo1-h26/rpicreationimage.html">ces instructions</a>. Créez ensuite votre environnement de compilation croisée (dans une machine virtuelle ou pas) en suivant <a href="https://setr-ulaval.github.io/labo1-h26/preparationvm.html">les étapes décrites ici.</a> Finalement, préparez votre configuration du noyau Linux pour le Raspberry Pi Zero W en suivant <a href="https://setr-ulaval.github.io/labo1-h26/preparationkernelcompilation.html">les instructions détaillées ici.</a>.
 </details>
