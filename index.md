@@ -151,7 +151,7 @@ _Avant_ de démarrer la machine virtuelle, configurez sa mémoire vidéo en fais
 Commencez par décompresser le fichier SETR-H26-VM-ARM64.utm.zip téléchargé, il devrait contenir un unique fichier `.utm`. Par la suite, importez-le dans UTM.
 
 <details>
-<summary><summary><span style="color:#000099;font-weight:bold">Plus de détails sur l'installation de la machine virtuelle UTM</span></summary>
+<summary><span style="color:#000099;font-weight:bold">Plus de détails sur l'installation de la machine virtuelle UTM</span></summary>
 Installez d'abord UTM en suivant [ce lien](https://mac.getutm.app/). Ensuite, ouvrez l'application et sélectionnez `Create a New Virtual Machine` :<br>
 
 <img src="img/utm_1.png" style="width:510px"/><br>
