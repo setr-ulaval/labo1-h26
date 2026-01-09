@@ -242,7 +242,7 @@ Nous recommandons finalement l'installation et l'utilisation d'un résolveur DNS
 <summary><span style="color:#000099;font-weight:bold">Plus de détails sur l'utilisation d'un résolveur DNS</span></summary>
 Pour ce faire connectez-vous à <a href="https://www.duckdns.org">Duck DNS</a>. Créez un nom pour votre Raspberry Pi Zero. 
 
-Il faut ensuite configurer le Raspberry Pi Zero pour mettre à jour son adresse IP à chaque démarrage. Pour ce faire, nous avons déjà placé un <a href="https://setr-ulaval.github.io/labo1-h26/etc/duckdns.sh">script shell</a> dans <code class="language-plaintext highlighter-rouge">/usr/local/bin/duckdns.sh</a> sur l'image de votre Raspberry Pi Zero, dont le contenu est le suivant :
+Il faut ensuite configurer le Raspberry Pi Zero pour mettre à jour son adresse IP à chaque démarrage. Pour ce faire, nous avons déjà placé un <a href="https://setr-ulaval.github.io/labo1-h26/etc/duckdns.sh">script shell</a> dans <code class="language-plaintext highlighter-rouge">/usr/local/bin/duckdns.sh</code> sur l'image de votre Raspberry Pi Zero, dont le contenu est le suivant :
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 #!/bin/bash
