@@ -171,7 +171,7 @@ Commencez par décompresser le fichier SETR-H26-VM-ARM64.utm.zip téléchargé, 
 
 <details>
 <summary><span style="color:#000099;font-weight:bold">Plus de détails sur l'installation de la machine virtuelle UTM</span></summary>
-Installez d'abord UTM en suivant [ce lien](https://mac.getutm.app/). Ensuite, ouvrez l'application et sélectionnez <code class="language-plaintext highlighter-rouge">Create a New Virtual Machine</code> :<br>
+Installez d'abord UTM en suivant <a href="https://mac.getutm.app/">ce lien</a>. Ensuite, ouvrez l'application et sélectionnez <code class="language-plaintext highlighter-rouge">Create a New Virtual Machine</code> :<br>
 
 <img src="img/utm_1.png" style="width:510px"/><br>
 
@@ -199,11 +199,14 @@ Commencez par ouvrir un terminal sur votre machine virtuelle (troisième icône 
 $ ssh pi@adresse_ip_de_votre_raspberry_pi
 </code></pre></div></div>
 
-> Note : dans les énoncés, nous suivons la convention de faire précéder une commande à exécuter dans le terminal par un signe de dollar ($). Ce signe ne doit _pas_ être copié dans le terminal. Par exemple, dans ce cas-ci, il faut copier seulement <code class="language-plaintext highlighter-rouge">ssh pi@adresse_ip_de_votre_raspberry_pi</code>.
+<blockquote>
+  <p>Note : dans les énoncés, nous suivons la convention de faire précéder une commande à exécuter dans le terminal par un signe de dollar ($). Ce signe ne doit _pas_ être copié dans le terminal. Par exemple, dans ce cas-ci, il faut copier seulement <code class="language-plaintext highlighter-rouge">ssh pi@adresse_ip_de_votre_raspberry_pi</code>.
+  </p>
+  </blockquote>
 
 Remplacez évidemment <code class="language-plaintext highlighter-rouge">adresse_ip_de_votre_raspberry_pi</code> par l'adresse IP que vous avez obtenue à l'étape 2.2.3 avant d'exécuter cette commande. Le terminal va d'abord vous avertir que "l'authenticité de cet hôte ne peut être établie" (c'est parce que vous vous connectez pour la première fois). Acceptez l'avertissement en écrivant <code class="language-plaintext highlighter-rouge">yes</code> dans le terminal. Par la suite, après quelques secondes, le terminal devrait vous demander le mot de passe de votre Raspberry Pi Zero (celui que vous avez choisi à l'étape 2.1.1). Une fois ce mot de passe écrit, pressez "Enter" et une connexion devrait s'établir, montrant l'invite de commande <code class="language-plaintext highlighter-rouge">pi@rpisetr</code> pour indiquer que vous avez maintenant une console ouverte sur le Raspberry Pi et non votre machine virtuelle.<br>
 
-<img src="img/ssh1st.png" style="width:510px"/><br>
+<img src="img/ssh1st.png" style="width:710px"/><br>
 
 <blockquote>
   <p>*Note* : il est normal qu'aucun caractère ne s'affiche dans le terminal lorsque vous écrivez le mot de passe.
@@ -319,8 +322,10 @@ Il vous faut maintenant copier le noyau sur la carte MicroSD de votre Raspberry 
 <summary><span style="color:#000099;font-weight:bold">Plus de détails sur le montage de la carte MicroSD dans la machine virtuelle</span></summary>
 
 Ces lecteurs de carte sont des lecteurs USB et doivent être configurés pour être contrôlés <em>par votre machine virtuelle</em>.
-- Sur x86-64 (Intel ou AMD), allez dans le menu "Périphériques" en haut de la fenêtre de la machine virtuelle, développez la section "USB" et sélectionnez le périphérique correspondant à votre lecteur de cartes.
-- Sur ARM64 (Mac), cliquez sur la 4e icône à partir de la <em>droite</em> (celle qui ressemble à un connecteur USB) et sélectionnez le périphérique correspondant à votre lecteur de cartes.<br>
+<ul>
+<li>Sur x86-64 (Intel ou AMD), allez dans le menu "Périphériques" en haut de la fenêtre de la machine virtuelle, développez la section "USB" et sélectionnez le périphérique correspondant à votre lecteur de cartes.</li>
+<li>Sur ARM64 (Mac Mx), cliquez sur la 4e icône à partir de la <em>droite</em> (celle qui ressemble à un connecteur USB) et sélectionnez le périphérique correspondant à votre lecteur de cartes.</li>
+</ul>
 
 <img src="img/vbox_5.png" style="width:400px;margin-right:50px"/><img src="img/utm_3.png" style="width:300px"/><br>
 
