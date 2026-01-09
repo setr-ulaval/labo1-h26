@@ -4,9 +4,9 @@ title: "Laboratoire 1 : Configuration du Raspberry Pi Zero W et compilation d'un
 
 <style type="text/css">
 details {
-  border: 1px solid #000099;
+  border: 1px solid #000088;
   padding: 0 1rem;
-  background: #D9D9FF;
+  background: #E2E2FF;
 }
 details + details {
   border-top: none;
@@ -65,7 +65,7 @@ La carte MicroSD du kit qui vous a été fourni **contient déjà** l'image syst
 
 <details>
 <summary><span style="color:#000099;font-weight:bold">Plus de détails</span></summary>
-Ce fichier (une fois extrait de l'archive ZIP) doit être copié en mode bas niveau (pas seulement une copie du fichier lui-même!) sur une carte MicroSD d'une capacité d'au moins *32 GB* (par exemple en utilisant `dd` sous Linux, ou un programme tel que [Rufus](https://rufus.ie/en/) sur Windows).
+Ce fichier (une fois extrait de l'archive ZIP) doit être copié en mode bas niveau (pas seulement une copie du fichier lui-même!) sur une carte MicroSD d'une capacité d'au moins <em>32 GB</em> (par exemple en utilisant <code class="language-plaintext highlighter-rouge">dd</code> sous Linux, ou un programme tel que <a href="https://rufus.ie/en/">Rufus</a> sur Windows).
 </details>
 
 
@@ -318,9 +318,9 @@ Il vous faut maintenant copier le noyau sur la carte MicroSD de votre Raspberry 
 <details>
 <summary><span style="color:#000099;font-weight:bold">Plus de détails sur le montage de la carte MicroSD dans la machine virtuelle</span></summary>
 
-Ces lecteurs de carte sont des lecteurs USB et doivent être configurés pour être contrôlés _par votre machine virtuelle_.
+Ces lecteurs de carte sont des lecteurs USB et doivent être configurés pour être contrôlés <em>par votre machine virtuelle</em>.
 - Sur x86-64 (Intel ou AMD), allez dans le menu "Périphériques" en haut de la fenêtre de la machine virtuelle, développez la section "USB" et sélectionnez le périphérique correspondant à votre lecteur de cartes.
-- Sur ARM64 (Mac), cliquez sur la 4e icône à partir de la _droite_ (celle qui ressemble à un connecteur USB) et sélectionnez le périphérique correspondant à votre lecteur de cartes.<br>
+- Sur ARM64 (Mac), cliquez sur la 4e icône à partir de la <em>droite</em> (celle qui ressemble à un connecteur USB) et sélectionnez le périphérique correspondant à votre lecteur de cartes.<br>
 
 <img src="img/vbox_5.png" style="width:400px;margin-right:50px"/><img src="img/utm_3.png" style="width:300px"/><br>
 
