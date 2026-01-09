@@ -34,7 +34,7 @@ Les énoncés de laboratoire sont conçus pour donner un niveau de détails suff
 La partie 1 est toujours affichée. Afin d'alléger l'énoncé, la partie 2 est, quant à elle, souvent cachée sous un bloc _Plus de détails_, semblable à celui-ci :
 
 <details>
-<summary><span style="color:red;font-weight:bold">Plus de détails</span></summary>
+<summary><span style="color:#000099;font-weight:bold">Plus de détails</span></summary>
 Ceci décrit des détails supplémentaires sur la manière suggérée de réaliser l'action demandée.
 </details>
 
@@ -45,7 +45,7 @@ Vous êtes libres de sauter ces sections si vous êtes certains de savoir commen
 La carte MicroSD du kit qui vous a été fourni **contient déjà** l'image système nécessaire au cours. Toutefois, dans le cas où vous recevez un kit avec une MicroSD non-initialisée, que vous voudriez revenir à l'état initial de l'image, ou simplement créer une copie, vous pouvez télécharger le fichier *.img* contenant l'[image du cours](http://wcours.gel.ulaval.ca/GIF3004/setrh26/setr2026_rpizero_image.zip).
 
 <details>
-<summary>Plus de détails</summary>
+<summary><span style="color:#000099;font-weight:bold">Plus de détails</span></summary>
 Ce fichier (une fois extrait de l'archive ZIP) doit être copié en mode bas niveau (pas seulement une copie du fichier lui-même!) sur une carte MicroSD d'une capacité d'au moins *32 GB* (par exemple en utilisant `dd` sous Linux, ou un programme tel que [Rufus](https://rufus.ie/en/) sur Windows).
 </details>
 
@@ -120,7 +120,7 @@ Finalement, vous êtes libres d'utiliser votre propre installation _Linux_. Note
 Commencez par décompresser le fichier `SETR-H26-VM-x64.zip` téléchargé, il devrait contenir un unique fichier `.vdi`. Importez-le en créant une nouvelle machine virtuelle Ubuntu et en le sélectionnant comme support de stockage.=
 
 <details>
-<summary>Plus de détails sur l'installation de la machine virtuelle VirtualBox</summary>
+<summary><span style="color:#000099;font-weight:bold">Plus de détails sur l'installation de la machine virtuelle VirtualBox</span></summary>
 Pour importer la machine virtuelle dans VirtualBox, cliquez sur *Nouvelle*.<br>
 
 <img src="img/vbox_1.png" style="width:510px"/><br>
@@ -151,7 +151,7 @@ _Avant_ de démarrer la machine virtuelle, configurez sa mémoire vidéo en fais
 Commencez par décompresser le fichier SETR-H26-VM-ARM64.utm.zip téléchargé, il devrait contenir un unique fichier `.utm`. Par la suite, importez-le dans UTM.
 
 <details>
-<summary>Plus de détails sur l'installation de la machine virtuelle UTM</summary>
+<summary><summary><span style="color:#000099;font-weight:bold">Plus de détails sur l'installation de la machine virtuelle UTM</span></summary>
 Installez d'abord UTM en suivant [ce lien](https://mac.getutm.app/). Ensuite, ouvrez l'application et sélectionnez `Create a New Virtual Machine` :<br>
 
 <img src="img/utm_1.png" style="width:510px"/><br>
@@ -173,7 +173,7 @@ Validez que vous êtes capables de vous connecter à votre machine virtuelle par
 
 
 <details>
-<summary>Plus de détails sur l'établissement d'une connexion SSH</summary>
+<summary><summary><span style="color:#000099;font-weight:bold">Plus de détails sur l'établissement d'une connexion SSH</span></summary>
 
 Commencez par ouvrir un terminal sur votre machine virtuelle (troisième icône du menu de gauche) et tentez de vous connecter à votre Raspberry Pi Zero :
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
@@ -196,7 +196,7 @@ Remplacez évidemment `adresse_ip_de_votre_raspberry_pi` par l'adresse IP que vo
 Par la suite, vous devez mettre en place une _authentification par clé publique_, pour vous éviter de devoir réécrire le même mot de passe à chaque connexion.
 
 <details>
-<summary>Plus de détails sur l'authentification sans mot de passe</summary>
+<summary><summary><span style="color:#000099;font-weight:bold">Plus de détails sur la configuration d'une authentification sans mot de passe</span></summary>
 Ces commandes sont à effectuer sur votre machine virtuelle :
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 $ ssh-keygen -t rsa -b 4096 -C "ecrivez_votre_nom_ici"
@@ -217,7 +217,7 @@ Nous recommandons finalement l'installation et l'utilisation d'un résolveur DNS
 
 
 <details>
-<summary>Plus de détails sur l'utilisation d'un résolveur DNS</summary>
+<summary><summary><span style="color:#000099;font-weight:bold">Plus de détails sur l'utilisation d'un résolveur DNS</span></summary>
 Pour ce faire connectez-vous à [Duck DNS](https://www.duckdns.org). Créez un nom pour votre Raspberry Pi Zero. 
 
 Il faut ensuite configurer le Raspberry Pi Zero pour mettre à jour son adresse IP à chaque démarrage. Pour ce faire, nous avons déjà placé un [script shell](https://setr-ulaval.github.io/labo1-h26/etc/duckdns.sh) dans `/usr/local/bin/duckdns.sh` sur l'image de votre Raspberry Pi Zero, dont le contenu est le suivant :
