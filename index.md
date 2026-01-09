@@ -2,6 +2,26 @@
 title: "Laboratoire 1 : Configuration du Raspberry Pi Zero W et compilation d'un noyau temps réel"
 ---
 
+<style type="text/css">
+details {
+  border: 2px solid #000099;
+  padding: 0 1rem;
+  background: #A0A0F0;
+}
+details + details {
+  border-top: none;
+}
+details[open] {
+    padding-bottom: 1em;
+}  
+summary {
+  padding: 1rem 2em 1rem 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
+
 ## 1. Objectifs
 
 Ce travail pratique vise les objectifs suivants :
