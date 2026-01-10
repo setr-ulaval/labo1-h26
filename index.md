@@ -136,7 +136,7 @@ Finalement, vous êtes libres d'utiliser votre propre installation _Linux_. Note
 
 ### 3.1. Lancement de la machine virtuelle x86-64 (pour tous les ordinateurs Windows et Linux et les ordinateurs Mac avec processeur Intel)
 
-Commencez par décompresser le fichier `SETR-H26-VM-x64.zip` téléchargé, il devrait contenir un unique fichier `.vdi`. Importez-le en créant une nouvelle machine virtuelle Ubuntu et en le sélectionnant comme support de stockage.=
+Commencez par décompresser le fichier `SETR-H26-VM-x64.zip` téléchargé, il devrait contenir un unique fichier `.vdi`. Importez-le en créant une nouvelle machine virtuelle Ubuntu et en le sélectionnant comme support de stockage.
 
 <details>
 <summary><span style="color:#000099;font-weight:bold">Plus de détails sur l'installation de la machine virtuelle VirtualBox</span></summary>
@@ -497,7 +497,7 @@ Finalement, vous devez corriger le code de manière à ce que GCC ne renvoie plu
 
 ## 7. Modalités d'évaluation
 
-Ce travail est **individuel**. Ce travail compte pour **4%** de la note totale du cours. La moitié de la note (2%) est évaluée en personne lors de l'atelier (voir section 7.1), l'autre moitié (2%) par un questionnaire sur MonPortail. Aucun rapport n'est à remettre, mais vous devez être en mesure de démontrer que votre environnement de développement est fonctionnel et que vous savez utiliser ses fonctions basiques lors de l'évaluation au PLT-0103. Cette évaluation sera faite lors de la séance d'atelier du **30 janvier 2026**. 
+Ce travail est **individuel**. Ce travail compte pour **4%** de la note totale du cours. La moitié de la note (2%) est évaluée en personne lors de l'atelier (voir section 7.1), l'autre moitié (2%) par un questionnaire sur MonPortail. Aucun rapport n'est à remettre, mais vous devez être en mesure de démontrer que votre environnement de développement est fonctionnel et que vous savez utiliser ses fonctions basiques lors de l'évaluation au PLT-0103. Cette évaluation sera faite lors de la séance d'atelier du **30 janvier 2026**, où vous devez être présent à partir de 9h30. 
 
 
 ## 7.1 Évaluation en personne

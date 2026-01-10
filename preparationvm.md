@@ -11,7 +11,7 @@ title: "Laboratoire 1 : Préparation de la machine virtuelle VirtualBox avec l'e
 Installez VirtualBox (la procédure a été testée avec VirtualBox 7.2.4, mais peut fonctionner avec d'autres versions). Téléchargez [Ubuntu 24.04.3](https://releases.ubuntu.com/noble/ubuntu-24.04.3-desktop-amd64.iso) et lancez une machine avec cet ISO. La configuration devrait comporter au moins les éléments suivants :
 - Disque dur virtuel **au format VDI** et d'une capacité (virtuelle) d'au moins 50 Go;
 - Allouer 8192 Mo de RAM et 4 coeurs (ajustable par la suite, mais bon point de départ);
-- Allouer 32 Mo de VRAM (mémoire vidéo). Ne PAS activer l'accélération 3D.
+- Allouer 128 Mo de VRAM (mémoire vidéo). Ne PAS activer l'accélération 3D.
 
 Installez par la suite Ubuntu selon la procédure standard, en utilisant `setr` comme nom d'utilisateur et `setrh2026` comme mot de passe. Sélectionnez *Français (Canada)* pour le clavier et activez le login automatique (auto-login).
 
@@ -25,7 +25,7 @@ sudo apt install autoconf bison flex git cmake build-essential texinfo help2man 
 ```
 
 Installez ensuite Visual Studio Code (testé avec la version 1.107)
-Télécharger le .deb [via ce lien](https://update.code.visualstudio.com/1.107.0/linux-deb-x64/stable) puis utilisez `sudo dpkg -i` pour l'installer.
+Télécharger le .deb [via ce lien](https://update.code.visualstudio.com/1.107.0/linux-deb-x64/stable) puis utilisez `sudo apt ./nomdupackage.deb` pour l'installer.
 
 > Note : l'installation via un snap package n'est pas recommandée puisque la mise à jour est faite automatiquement à des moments arbitraires
 
