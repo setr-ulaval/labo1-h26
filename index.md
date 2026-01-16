@@ -100,13 +100,19 @@ Si vous êtes sur le campus, nous vous suggérons d'utiliser Eduroam2 (le résea
 Si vous n'êtes pas familier avec les éditeurs de texte en console, nous vous suggérons d'utiliser <code class="language-plaintext highlighter-rouge">nano</code> (par exemple, dans ce cas-ci, <code class="language-plaintext highlighter-rouge">sudo nano /etc/NetworkManager/system-connections/eduroam2.nmconnection</code>). Une fois vos modifications effectuées, utilisez Ctrl+X pour quitter, puis Y (pour enregistrer vos modifications) et Enter (pour conserver le même nom de fichier). Si vous êtes familier avec d'autres éditeurs, vous êtes évidemment libre de les utiliser.
 </details>
 
-#### 2.2.2. Votre propre réseau
+#### 2.2.2. Réseau alternatif pour le laboratoire
+
+**Mise à jour janvier 2026** : il semble que l'utilisation de _Eduroam2_ pose problème après un certain temps au pilote wifi du Raspberry Pi Zero, particulièrement si beaucoup de données sont transférées. Si c'est votre cas, nous avons prévu un réseau alternatif : _EvenementUL_
+
+Pour vous y connecter, copiez dans `/etc/NetworkManager/system-connections/` le fichier `EvenementUL.nmconnection`, que vous pouvez trouver dans MonPortail, dans la section `Contenu et activités`, puis `Laboratoire 1 : environnement de développement`, et finalement dans la section du bas, `Énoncé et présentations` (le fichier n'est pas directement disponible ici parce que le mot de passe de connexion est écrit en clair). Par la suite, supprimez (ou déplacez) le fichier `/etc/NetworkManager/system-connections/eduroam2.nmconnection` (pour ne pas qu'il soit prioritaire). Vous pourrez par la suite vous connecter à votre Raspberry Pi avec votre ordinateur connecté sur _Eduroam2_.
+
+#### 2.2.3. Votre propre réseau
 
 Utilisez la commande `nmtui` dans le terminal et suivez les instructions. En général, il suffit de sélectionner `Activate a connection` ou `Edit connection` (dépendant des réseaux déjà enregistrés), puis de sélectionner le réseau sur lequel vous voulez vous connecter et de fournir votre mot de passe. Une fois la configuration terminée, la connexion devrait se faire dans un délai de 15 à 20 secondes.
 
 > Note : si, sur votre propre réseau, vous observez des lenteurs anormales ou des déconnexions fréquentes dans vos connexions SSH (ex. lors de vos sessions de débogage), essayez d'ajouter la ligne `IPQoS cs0 cs0` à la fin du fichier `/etc/ssh/sshd_config`. Voyez [cette page](https://discourse.osmc.tv/t/solved-ssh-connection-sometimes-hangs/76504) pour plus d'informations.
 
-#### 2.2.3 Valider la connexion
+#### 2.2.4 Valider la connexion
 
 Vous pouvez valider la connexion sans-fil en exécutant la commande `ip addr | grep -A 3 wlan` sur le Raspberry Pi Zero. Celle-ci devrait :
 
