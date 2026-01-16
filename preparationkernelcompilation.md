@@ -51,7 +51,7 @@ git reset --hard a8c4c464b753ef2273ae23cb79de4f9f05ce4ec7
 
 > Note : l'option `shallow-since` évite de télécharger l'entièreté de l'historique Git du noyau Linux; toutefois, la taille téléchargée ira en augmentant au fil du temps. Si votre exécutable `git` est à la version 2.49.0 ou plus récente, l'option `--revision` peut être directement passée à `git clone` et éviter complètement d'avoir à recourir à `git reset` :
 ```
-git clone -b rpi-6.12.y --depth=1 --revision=a8c4c464b753ef2273ae23cb79de4f9f05ce4ec7 https://github.com/raspberrypi/linux linux-build
+git clone --depth=1 --revision=a8c4c464b753ef2273ae23cb79de4f9f05ce4ec7 https://github.com/raspberrypi/linux linux-build
 ```
 
 Par la suite, téléchargez puis appliquez le *patch* `PREEMPT_RT`, en exécutant ces commandes dans le dossier créé par le clone du dépôt Git (par défaut, `linux`) :

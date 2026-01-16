@@ -90,6 +90,8 @@ Nous vous recommandons **fortement** de remplacer ce mot de passe par défaut pa
 
 Ensuite, vous devez configurer votre Raspberry Pi pour qu'il se connecte au réseau sans fil.
 
+> **Important** : peu-importe le réseau utilisé, il est nécessaire que les permissions des fichiers `.nmconnection` soient 600. Une façon simple de le vérifier est d'utiliser la commande `ls -l /etc/NetworkManager/system-connections/`; toutes les lignes devraient alors commencer par `-rw------- 1 root root`. Si certains fichiers commencent plutôt par `-rw-r--r-- 1 root root` ou une autre variation, le réseau ne sera pas considéré. Pour vous assurer d'avoir les bonnes permissions, utilisez la commande `sudo chmod 600 /etc/NetworkManager/system-connections/*` sur votre Raspberry Pi Zero.
+
 #### 2.2.1. Eduroam
 
 Si vous êtes sur le campus, nous vous suggérons d'utiliser Eduroam2 (le réseau accessible au laboratoire). Nous vous fournissons déjà un fichier de configuration pour ce réseau dans `/etc/NetworkManager/system-connections/eduroam2.nmconnection`. Éditez ce fichier pour y ajouter votre IDUL et votre NIP, puis redémarrez le Raspberry Pi avec la commande `sudo reboot`. 
@@ -277,7 +279,7 @@ Le noyau Linux installé par défaut sur la carte MicroSD du Raspberry Pi n'est 
 
 Au fil du cours, nous aurons besoin des capacités temps réel du noyau Linux. Hélas, il n'est pas possible de le reconfigurer dynamiquement, il faut plutôt le compiler à nouveau avec des options différentes. C'est donc la première chose que nous allons faire avec l'environnement de compilation croisée.
 
-Pour ce faire, clonez d'abord les sources du noyau Linux (adapté au Raspberry Pi Zero) dans un dossier nommé `linux-build` et sélectionnez un commit spécifique pour garantir que vous utilisez bien les mêmes fichiers source que ceux utilisés pour valider le laboratoire :
+Pour ce faire, clonez d'abord les sources du noyau Linux (adapté au Raspberry Pi Zero) dans un dossier nommé `linux-build` *sur votre machine virtuelle* et **non** sur le Raspberry Pi. Ensuite, sélectionnez un commit spécifique pour garantir que vous utilisez bien les mêmes fichiers source que ceux utilisés pour valider le laboratoire :
 ```
 $ cd $HOME
 $ git clone -b rpi-6.12.y --shallow-since=2025-12-03 https://github.com/raspberrypi/linux linux-build
@@ -297,6 +299,8 @@ Dans le répertoire `$HOME`, vous trouverez un dossier nommé `GIF3004-VM-artefa
 ```
 $ cp $HOME/GIF3004-VM-artefacts-2026-x64/kernel_config $HOME/linux-build/kernel_config
 ```
+
+> Si vous utilisez un Mac (et donc la VM UTM), téléchargez plutôt le fichier kernel_config [avec ce lien](https://wcours.gel.ulaval.ca/GIF3004/setrh26/kernel_config) et placez le dans `$HOME/linux-build/`
 
 Puis éditez le fichier copié dans `linux-build` et recherchez la clé `CONFIG_LOCALVERSION`. Lorsque vous l'avez trouvée, modifiez sa valeur **pour qu'elle contienne votre IDUL**, dans le format suivant:
 ```
