@@ -279,6 +279,8 @@ Le noyau Linux installé par défaut sur la carte MicroSD du Raspberry Pi n'est 
 
 Au fil du cours, nous aurons besoin des capacités temps réel du noyau Linux. Hélas, il n'est pas possible de le reconfigurer dynamiquement, il faut plutôt le compiler à nouveau avec des options différentes. C'est donc la première chose que nous allons faire avec l'environnement de compilation croisée.
 
+> Vous devez donc exécuter les commandes suivantes *dans votre machine virtuelle*.
+
 Pour ce faire, clonez d'abord les sources du noyau Linux (adapté au Raspberry Pi Zero) dans un dossier nommé `linux-build` *sur votre machine virtuelle* et **non** sur le Raspberry Pi. Ensuite, sélectionnez un commit spécifique pour garantir que vous utilisez bien les mêmes fichiers source que ceux utilisés pour valider le laboratoire :
 ```
 $ cd $HOME
