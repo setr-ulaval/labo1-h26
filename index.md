@@ -270,6 +270,40 @@ Changez les permissions permettant l'exécution du script avec la commande <code
 
 </details>
 
+#### 4.2.1. Configuration d'un résolveur DNS alternatif
+
+En cas de problème avec DuckDNS, vous pouvez utiliser un autre service nommé [deSEC.io](https://desec.io).
+
+> Ce site offre exactement le même service que DuckDNS, **il ne sert donc à rien d'installer les deux**. La procédure d'installation est fournie ici en raison des ratés de DuckDNS à la session hiver 2026. Si vous obtenez souvent l'erreur `ssh: Could not resolve hostname VOTREDOMAINE.duckdns.org: Temporary failure in name resolution`, utiliser deSEC pourrait être une alternative intéressante.
+
+
+<details>
+<summary><span style="color:#000099;font-weight:bold">Plus de détails sur deSEC.io</span></summary>
+Commencez par vous créer un compte sur deSEC.io. Assurez-vous de sélectionner l'option "Start with dynDNS domain" :<br>
+<img src="img/desec1.png" style="width:500px"/><br>
+
+À la page suivante, sélectionnez l'option "Register a new domain under dedyn.io (dynDNS)", cochez comme quoi vous acceptez les limitations, choisissez un nom de domaine pour votre Raspberry Pi dans la case "DynDNS domain", copiez le Captcha, répondez à l'énigme du sage de la montagne et cochez la case comme quoi vous acceptez les "Terms of use" et "Privacy policy".<br>
+<img src="img/desec1.png" style="width:700px"/><br>
+
+Vous devrez confirmer votre inscription en cliquant sur un lien reçu par courriel. Par la suite, deSEC.io vous fournira un token sous la phrase "All operations on your domain require the following authorization token secret shown below". <span style="font-weight:bold">Notez bien ce token, il ne pourra pas être récupéré par après!</span>.
+
+Finalement, <em>sur votre Raspberry Pi Zero</em>, éditez le fichier <code class="language-plaintext highlighter-rouge">/usr/local/bin/duckdns.sh</code> pour qu'il ressemble cette fois à ceci :
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+#!/bin/bash
+DESEC_LOCALIP4=`hostname -I | cut -d ' ' -f 1`
+DESEC_LOCALIP6=`hostname -I | cut -d ' ' -f 2`
+DESEC_TOKEN=ECRIRE VOTRE TOKEN DESEC ICI
+DESEC_DOMAINS=ECRIRE VOTRE DOMAINE DESEC ICI INCLUANT dedyn.io
+DESEC_LOGFILE=/var/log/desec.log
+curl --user $DESEC_DOMAINS:$DESEC_TOKEN "https://update.dedyn.io/?myipv4=$DESEC_LOCALIP4&myipv6=$DESEC_LOCALIP6" -o $DESEC_LOGFILE
+</code></pre></div></div>
+
+(conservez le nom <code class="language-plaintext highlighter-rouge">/usr/local/bin/duckdns.sh</code> pour que le service updateIP fonctionne toujours)
+
+Activez le service <em>updateIP</em> si ce n'est déjà fait (<code class="language-plaintext highlighter-rouge">sudo systemctl enable updateIP.service</code>) et redémarrez le Raspberry Pi Zero.
+
+</details>
+
 
 ## 5. Compilation et installation d'un noyau temps réel pour Linux
 
