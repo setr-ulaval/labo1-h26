@@ -283,7 +283,7 @@ Commencez par vous créer un compte sur deSEC.io. Assurez-vous de sélectionner 
 <img src="img/desec1.png" style="width:500px"/><br>
 
 À la page suivante, sélectionnez l'option "Register a new domain under dedyn.io (dynDNS)", cochez comme quoi vous acceptez les limitations, choisissez un nom de domaine pour votre Raspberry Pi dans la case "DynDNS domain", copiez le Captcha, répondez à l'énigme du sage de la montagne et cochez la case comme quoi vous acceptez les "Terms of use" et "Privacy policy".<br>
-<img src="img/desec1.png" style="width:700px"/><br>
+<img src="img/desec2.png" style="width:700px"/><br>
 
 Vous devrez confirmer votre inscription en cliquant sur un lien reçu par courriel. Par la suite, deSEC.io vous fournira un token sous la phrase "All operations on your domain require the following authorization token secret shown below". <span style="font-weight:bold">Notez bien ce token, il ne pourra pas être récupéré par après!</span>.
 
