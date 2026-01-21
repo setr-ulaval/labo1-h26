@@ -85,6 +85,7 @@ ct-ng armv6-unknown-linux-gnueabihf
 
 Il faut ensuite modifier plusieurs paramètres en utilisant `ct-ng menuconfig` :
 ```
+Paths and misc options -> Prefix directory -> ${HOME}/arm-cross-comp-env/${CT_TARGET} (nécessaire pour que les autres outils et scripts de compilation fournis fonctionnent, ils supposent ce chemin précis)
 Path and misc options -> Try features marked as EXPERIMENTAL -> Activer (sinon certaines des options suivantes ne s'afficheront pas!)
 Path and misc options -> Render the toolchain Read-only -> Désactiver
 Target options -> Suffix to the arch part -> Supprimer et laisser vide
