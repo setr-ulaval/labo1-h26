@@ -56,7 +56,7 @@ git clone --depth=1 --revision=a8c4c464b753ef2273ae23cb79de4f9f05ce4ec7 https://
 
 Par la suite, téléchargez puis appliquez le *patch* `PREEMPT_RT`, en exécutant ces commandes dans le dossier créé par le clone du dépôt Git (par défaut, `linux`) :
 ```
-wget https://cdn.kernel.org/pub/linux/kernel/projects/rt/6.12/patch-6.12.57-rt14.patch.gz
+wget https://cdn.kernel.org/pub/linux/kernel/projects/rt/6.12/older/patch-6.12.57-rt14.patch.gz
 gzip -d patch-6.12.57-rt14.patch.gz
 patch -p1 -i patch-6.12.57-rt14.patch
 ```

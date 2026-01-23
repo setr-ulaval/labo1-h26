@@ -326,7 +326,7 @@ $ git reset --hard a8c4c464b753ef2273ae23cb79de4f9f05ce4ec7
 Ces sources ne contiennent toutefois _pas_ le _patch_ `PREEMPT_RT` pour ARM 32 bits (l'architecture du Raspberry Pi Zero). Il faut donc récupérer le fichier _patch_ compressé, le décompresser puis l'appliquer sur celles-ci :
 ```
 $ cd $HOME/linux-build
-$ wget https://cdn.kernel.org/pub/linux/kernel/projects/rt/6.12/patch-6.12.57-rt14.patch.gz
+$ wget https://cdn.kernel.org/pub/linux/kernel/projects/rt/6.12/older/patch-6.12.57-rt14.patch.gz
 $ gzip -d patch-6.12.57-rt14.patch.gz
 $ patch -p1 -i patch-6.12.57-rt14.patch
 ```
@@ -396,6 +396,8 @@ $ mkdir -p carte_microsd/root
 $ sudo mount /dev/sdb1 carte_microsd/boot
 $ sudo mount /dev/sdb2 carte_microsd/root
 ```
+
+> Note : sur les machines virtuelles UTM (pour Mac), il se peut que le bon périphérique soit `/dev/sda` (donc `/dev/sda1` et `/dev/sda2` dans les commandes plus haut). Si les commandes `mount` échouent, vérifiez le nom du périphérique avec la commande `lsblk` : le périphérique commençant par `sd` et suivi de la lettre la plus haute de l'alphabet est celui à utiliser. Par ailleurs, la taille des partitions devrait être d'environ 512 Mo et 29 Go, pour les partitions 1 et 2 respectivement.
 
 Nous pouvons finalement passer à l'installation du noyau proprement dit :
 ```
